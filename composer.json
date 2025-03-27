@@ -1,0 +1,71 @@
+{
+    "name": "markedeffect/featured-image-block-fallback",
+    "description": "Provide a fallback image for the featured image block",
+    "type": "library",
+    "license": "GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": false,
+        "vendor-dir": "vendor",
+        "platform": {
+            "php": "8.2"
+        },
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "MarkedEffect\\FeaturedImageBlockFallback\\": "./inc"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpunit/phpunit": "^9.6",
+        "symfony/var-dumper": "*",
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpstan/phpstan": "^1.10",
+        "szepeviktor/phpstan-wordpress": "^1.3",
+        "phpcsstandards/phpcsutils": "^1.0"
+    },
+    "scripts": {
+        "phpstan": "./vendor/bin/phpstan analyze -c ./tests/phpstan.neon --memory-limit=2048M",
+        "phpsniff": "./vendor/bin/phpcs ./inc -v --standard='./tests/phpcs.xml'",
+        "phpsniff:fix": "./vendor/bin/phpcbf ./inc -v --standard='./tests/phpcs.xml'",
+        "phpsniff:default": "./vendor/bin/phpcs ./inc -v",
+        "phpsniff:PSR12": "./vendor/bin/phpcs ./inc -v --standard='PSR12'",
+        "phpsniff:PSR2": "./vendor/bin/phpcs ./inc -v --standard='PSR2'",
+        "phpsniff:WP": "./vendor/bin/phpcs ./inc -v --standard='WordPress'",
+        "phpunit": "./vendor/bin/phpunit --configuration ./tests/phpunit.xml",
+        "build": [
+            "composer install",
+            "@phpstan",
+            "@phpsniff:fix",
+            "@phpsniff",
+            "@phpunit",
+            "composer install --no-dev --optimize-autoloader",
+            "npm install",
+            "npm run build",
+            "rm -rf node_modules"
+        ],
+        "package": [
+            "rm -rf src",
+            "rm -rf node_modules",
+            "rm -f composer.json",
+            "rm -f project.code-workspace",
+            "rm -f package-lock.json",
+            "rm -f package.json",
+            "rm -f webpack.config.js",
+            "rm -f declerations.d.ts",
+            "rm -f tsconfig.json",
+            "rm -f postcss.config.js",
+            "rm -f stylelint.config.js",
+            "rm -f composer.lock",
+            "git add --all",
+            "git add --force vendor"
+        ]
+    }
+}

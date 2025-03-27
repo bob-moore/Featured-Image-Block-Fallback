@@ -1,0 +1,60 @@
+{
+	"name": "marked-effect-featured-image-block-fallback",
+	"version": "1.0.0",
+	"description": "Block editor plugin to add a fallback image for the featured image block",
+	"author": "Bob Moore <bob@bobmoore.dev>",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"theme",
+		"wordpress"
+	],
+	"homepage": "https://www.bob@bobmoore.dev",
+	"repository": "https://github.com/MDMDevOps/isthmusroofing.com",
+	"bugs": "https://github.com/MDMDevOps/isthmusroofing.com/issues",
+	"devDependencies": {
+		"@wordpress/block-editor": "^14.13.0",
+		"@wordpress/blocks": "^14.7.0",
+		"@wordpress/edit-post": "^8.18.0",
+		"@wordpress/icons": "^10.18.0",
+		"@wordpress/plugins": "^7.18.0",
+		"@wordpress/scripts": "^30.11.0",
+		"autoprefixer": "^10.4.20",
+		"clean-webpack-plugin": "^4.0.0",
+		"copy-webpack-plugin": "^12.0.2",
+		"cssnano": "^7.0.6",
+		"glob": "^11.0.1",
+		"mini-css-extract-plugin": "^2.9.2",
+		"postcss": "^8.5.3",
+		"postcss-assets": "^6.0.0",
+		"postcss-nested": "^7.0.2",
+		"postcss-pxtorem": "^6.1.0",
+		"pxtorem": "^1.0.0",
+		"sass": "^1.85.0",
+		"webpack-remove-empty-scripts": "^1.0.4"
+	},
+	"scripts": {
+		"build": "npm run fix:css && npm run fix:js && npm run compile",
+		"compile": "wp-scripts build",
+		"watch": "wp-scripts start",
+		"watch:hot": "wp-scripts start --hot",
+		"check-engines": "wp-scripts check-engines",
+		"check-licenses": "wp-scripts check-licenses --prod --gpl2",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style './src/**/*.scss'",
+		"fix:css": "wp-scripts lint-style './src/**/*.scss' --fix",
+		"lint:js": "wp-scripts lint-js",
+		"fix:js": "wp-scripts lint-js --fix",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"test:e2e": "wp-scripts test-e2e",
+		"test:unit": "wp-scripts test-unit-js"
+	},
+	"browserslist": [
+		"last 3 version",
+		"> 1%",
+		"not dead"
+	],
+	"dependencies": {}
+}

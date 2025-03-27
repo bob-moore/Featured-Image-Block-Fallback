@@ -1,0 +1,32 @@
+<?php
+/**
+ * Plugin Name:       Featured Image Block Fallback
+ * Plugin URI:        https://github.com/bob-moore/Featured-Image-Block-Fallback
+ * Author:            Bob Moore
+ * Author URI:        https://www.bobmoore.dev
+ * Description:       Simple, classic menu block.
+ * Version:           0.1.3
+ * Requires at least: 6.7
+ * Tested up to:      6.7
+ * Requires PHP:      8.2
+ * Author:            The WordPress Contributors
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       featured-image-block-fallback
+ *
+ * @package           featured-image-block-fallback
+ */
+
+namespace MarkedEffect\FeaturedImageBlockFallback;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+new Plugin();
+
+if ( class_exists( 'MarkedEffect\\FeaturedImageBlockFallback\\Plugin' ) ) {
+	
+}
