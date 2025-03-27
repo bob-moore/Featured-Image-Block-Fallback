@@ -4,8 +4,8 @@
  * Plugin URI:        https://github.com/bob-moore/Featured-Image-Block-Fallback
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
- * Description:       Simple, classic menu block.
- * Version:           0.1.3
+ * Description:       Add fallback images to the featured image block
+ * Version:           0.1.0
  * Requires at least: 6.7
  * Tested up to:      6.7
  * Requires PHP:      8.2
@@ -25,8 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-new Plugin();
 
 if ( class_exists( 'MarkedEffect\\FeaturedImageBlockFallback\\Plugin' ) ) {
-	
+	new Plugin();
 }
