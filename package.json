@@ -55,5 +55,12 @@
 		"last 3 version",
 		"> 1%",
 		"not dead"
+	],
+	"files": [ 
+		"featured-image-block-fallback.php",
+		"build",
+		"assets",
+		"inc",
+		"readme.txt"
 	]
 }
