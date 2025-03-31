@@ -40,29 +40,11 @@ class Updater
      */
     protected string $url;
     /**
-     * The plugin slug.
-     *
-     * @var string
-     */
-    protected string $plugin_slug;
-    /**
-     * The plugin name.
-     *
-     * @var string
-     */
-    protected string $plugin_name;
-    /**
      * The plugin version.
      *
      * @var string
      */
     protected string $plugin_version;
-    /**
-     * The plugin update URI.
-     *
-     * @var string
-     */
-    protected string $plugin_update_uri;
     /**
      * The plugin icon.
      *
@@ -111,20 +93,7 @@ class Updater
 
         $this->dir = str_replace( ABSPATH, '', dirname( $this->root_file ) );
         $this->url = trailingslashit( trailingslashit( WP_SITEURL ) . $this->dir);
-
-        // do_action( 'qm/debug', $plugin_data );
-
-        $this->api_slug = untrailingslashit( 
-            str_replace( 'https://github.com/', '', strtolower( $plugin_data['UpdateURI'] ) )
-        );
-
         $this->plugin_version = $plugin_data['Version'];
-
-        // do_action( 'qm/debug', basename( dirname( $this->root_file ) ) );
-        // $response = wp_remote_get( 'https://api.github.com/repos/bob-moore/featured-image-block-fallback/releases' );
-
-
-        // $response_body = wp_remote_retrieve_body( $response );
     }
     /**
      * Helper function to create URLs.
@@ -193,10 +162,18 @@ class Updater
      *
      * @return object
      */
-    protected function request(): object
+    protected function request(): ?object
     {
-        $manifest = json_decode( file_get_contents( dirname( $this->root_file ) . '/manifest.json' ) );
-        return $manifest;
+        $remote = wp_remote_get("https://raw.githubusercontent.com/bob-moore/Featured-Image-Block-Fallback/main/manifest.json");
+
+        if ( is_wp_error( $remote ) 
+            || 200 !== wp_remote_retrieve_response_code( $remote )
+        ) {
+            return null;
+        }
+        $body = wp_remote_retrieve_body( $remote );
+
+        return json_decode( $body );
     }
     /**
      * Filters the update transient.
