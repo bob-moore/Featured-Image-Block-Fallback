@@ -1,16 +1,21 @@
 {
-	"name": "marked-effect-featured-image-block-fallback",
-	"version": "1.0.0",
+	"name": "@marked-effect/featured-image-block-fallback",
+	"version": "0.1.2",
 	"description": "Block editor plugin to add a fallback image for the featured image block",
 	"author": "Bob Moore <bob@bobmoore.dev>",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"theme",
-		"wordpress"
+		"plugin",
+		"wordpress",
+		"block",
+		"block-editor",
+		"block-editor-plugin",
+		"featured-image",
+		"gutenberg"
 	],
 	"homepage": "https://www.bob@bobmoore.dev",
-	"repository": "https://github.com/MDMDevOps/isthmusroofing.com",
-	"bugs": "https://github.com/MDMDevOps/isthmusroofing.com/issues",
+	"repository": "https://github.com/bob-moore/Featured-Image-Block-Fallback",
+	"bugs": "https://github.com/bob-moore/Featured-Image-Block-Fallback/issues",
 	"devDependencies": {
 		"@wordpress/block-editor": "^14.16.0",
 		"@wordpress/blocks": "^14.10.0",
@@ -47,7 +52,7 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"zip": "wp-scripts plugin-zip",
+		"zip": "wp-scripts plugin-zip --root-folder='featured-image-block-fallback'",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js"
 	},
@@ -61,6 +66,7 @@
 		"build",
 		"assets",
 		"inc",
+		"vendor",
 		"readme.txt"
 	]
 }

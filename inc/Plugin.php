@@ -179,16 +179,21 @@ class Plugin {
     {
         if ( 
             $block['blockName'] !== 'core/post-featured-image'
-            || ! isset( $block['attrs']['featuredImageFallback']['id'] )
             || has_post_thumbnail( get_the_id() )
         ) {
             return $block_content;
         }
 
-        $this->current_fallback_id = intval( $block['attrs']['featuredImageFallback']['id'] );
+        $fallback_id = apply_filters(
+            'featured_image_block_fallback_id',
+            intval( $block['attrs']['featuredImageFallback']['id'] ?? 0 ),
+            $block
+        );
 
-        add_filter( 'post_thumbnail_id', [ $this, 'filterPostThumbnailId' ] );
-
+        if ( ! empty( $$fallback_id ) ) {
+            $this->current_fallback_id = intval( $block['attrs']['featuredImageFallback']['id'] );
+            add_filter( 'post_thumbnail_id', [ $this, 'filterPostThumbnailId' ] );
+        }
         return $block_content;
     }
 }
