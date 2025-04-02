@@ -3,54 +3,7 @@ Contributors:      Bob Moore
 Tags:              block-extension, featured-image, plugin
 Requires at least: 6.5
 Tested up to:      6.7.2  
-Stable tag:        0.1.3
-Requires PHP:      8.2 
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
-
-**Featured Image Block Fallback** is a WordPress plugin that allows you to specify a fallback image for the featured image block
-
-== Description ==
-
-Out of the box, the `core/post-featured-image` block has no option to add a fallback image to be displayed in the case that the post does not have a featured image set. This extension does 1 simple thing - adds a fallback image option, and displays it when the post does not have a featured image set. That's it.
-
-== Installation ==
-
-1. Download the [latest release](https://github.com/bob-moore/Featured-Image-Block-Fallback/releases) zip file.
-2. Upload the plugin files to the `/wp-content/plugins` directory, or choose "upload plugin" and upload the zip file as instructed.  
-3. Activate the plugin through the 'Plugins' screen in WordPress.
-
-Updates are pushed directly from [Github](https://github.com/bob-moore/Featured-Image-Block-Fallback) and not from the official WordPress plugin repository. I have not submitted to the repository, but feel free to fork it and submit it yourself if you feel compelled, and are willing to provide support there.
-
-== Frequently Asked Questions ==
-
-= Is this plugin available on the official WordPress plugin repository? =  
-No. I have not submitted to the repository, but feel free to fork it and submit it yourself if you feel compelled, and are willing to provide support there.
-
-= Will I receive updates? =  
-Yes. Updates are pushed directly from [Github](https://github.com/bob-moore/Featured-Image-Block-Fallback) and not from the official WordPress plugin repository. 
-
-== Changelog ==
-
-= 0.1.4 =
-
-* Finalized initial public stable release.
-
-= 0.1.1 - 0.1.3 =
-
-* Created github updater classic
-* Bumped version for testing updater and releases
-
-= 0.1.0 =
-
-Initial upload.
-
-=== Featured Image Block Fallback ===
-Contributors:      Bob Moore  
-Tags:              block-extension, featured-image, plugin
-Requires at least: 6.5
-Tested up to:      6.7.2  
-Stable tag:        0.1.3
+Stable tag:        0.1.4
 Requires PHP:      8.2 
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html

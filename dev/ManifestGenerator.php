@@ -54,7 +54,7 @@ class ManifestGenerator
             }
         }
 
-        file_put_contents( dirname( $root_file ) . '/manifest.json', json_encode( $manifest ) );
+        file_put_contents( dirname( $root_file ) . '/manifest.json', json_encode( $manifest, JSON_PRETTY_PRINT ) );
 
     }
     public static function generate( Composer\Script\Event $event ) {
