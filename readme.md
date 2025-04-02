@@ -33,7 +33,36 @@ No extra setup, no global settings—just a simple enhancement that ensures your
 3. Activate the plugin through the 'Plugins' screen in WordPress.  
 
 ### Updates  
-This plugin is **not available in the WordPress Plugin Repository**. Instead, updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback). If you'd like to submit it to the repository yourself and provide support, feel free to fork it!  
+This plugin is **not available in the WordPress Plugin Repository**. Instead, updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback). If you'd like to submit it to the repository yourself and provide support, feel free to fork it!
+
+## Using in Your Own Plugin or Theme (Composer Support)  
+
+If you're a developer and want to **include this functionality directly in your own theme or plugin** without requiring an additional plugin install, you can import it as a Composer dependency.  
+
+### **Step 1: Add to composer.json**  
+
+Add the following to your `composer.json` file:  
+
+```json
+"repositories": [
+  {
+    "type": "git",
+    "url": "https://github.com/bob-moore/Featured-Image-Block-Fallback"
+  }
+],
+"require": {
+    "markedeffect/featured-image-block-fallback": "^0.1"
+}
+```
+### **Step 2: Initialize the Class**
+
+Once installed via Composer, you can initialize it in your theme or plugin:
+
+```php
+$featured_image_fallback = new \MarkedEffect\FeaturedImageBlockFallback();
+```
+
+Note: If you include this package directly, you will be responsible for managing updates yourself, since it will no longer be part of the plugin ecosystem.
 
 ## Frequently Asked Questions  
 
