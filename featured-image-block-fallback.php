@@ -5,8 +5,8 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add fallback images to the featured image block
- * Version:           0.1.4
- * Requires at least: 6.7
+ * Version:           0.1.5
+ * Requires at least: 6.5
  * Tested up to:      6.7.2
  * Requires PHP:      8.2
  * Author:            The WordPress Contributors
@@ -19,14 +19,43 @@
 
 namespace MarkedEffect\FeaturedImageBlockFallback;
 
+use MarkedEffect\FeaturedImageBlockFallback\Deps;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/scoped/autoload.php';
+require_once __DIR__ . '/vendor/scoped/scoper-autoload.php';
 
-
-if ( class_exists( 'MarkedEffect\\FeaturedImageBlockFallback\\Plugin' ) ) {
+/**
+ * Run the plugin. Simple.
+ *
+ * @return void
+ */
+function run() {
 	new Plugin();
-	$updater = new Updater( __FILE__ );
 }
+run();
+/**
+ * Init the github updater.
+ *
+ * @return void
+ */
+function init_updater() {
+	$plugin_args = [
+		'github.user'    => 'bob-moore',
+		'github.repo'    => 'Featured-Image-Block-Fallback',
+		'github.branch'  => 'main',
+		'config.banners' => [
+			'low'  => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/banner-772x250.jpg',
+			'high' => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/banner-1544x500.jpg',
+		],
+		'config.icons' => [
+			'default'  => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/icon.png',
+		]
+	];
+	new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);
+}
+init_updater();

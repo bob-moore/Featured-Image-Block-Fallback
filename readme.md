@@ -1,7 +1,7 @@
 
 ![banner-1544x500](https://github.com/user-attachments/assets/2220933d-c599-4317-9f3c-51e3a973d847)
 
-# Featured Image Block Fallback
+#Description
 
 **Contributors:** Bob Moore  
 **Tags:** block-extension, featured-image, plugin  
@@ -12,7 +12,7 @@
 **License:** GPL-2.0-or-later  
 **License URI:** [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)  
 
-## Description  
+## Featured Image Block Fallback
 
 The WordPress core/post-featured-image block is great—until a post doesn’t have a featured image. By default, it simply renders nothing, leaving an awkward gap in your design.
 
@@ -32,7 +32,7 @@ No extra setup, no global settings—just a simple enhancement that ensures your
 2. Upload the plugin files to the `/wp-content/plugins/` directory, or install it via "Upload Plugin" in WordPress.  
 3. Activate the plugin through the 'Plugins' screen in WordPress.  
 
-### Updates  
+## Updates  
 This plugin is **not available in the WordPress Plugin Repository**. Instead, updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback). If you'd like to submit it to the repository yourself and provide support, feel free to fork it!
 
 ## Using in Your Own Plugin or Theme (Composer Support)  
@@ -97,14 +97,17 @@ function my_theme_featured_image_fallback( int $fallback_id, array $block ): int
 add_filter( 'featured_image_block_fallback_id', 'my_theme_featured_image_fallback', 10, 2 );
 ```
 
-## Changelog
+# Changelog
 
-### 0.1.4
-	- Finalized initial public stable release.
+## 0.1.5
+- Added external updater dependency. 
 
-### 0.1.1 - 0.1.3
-	- Created GitHub updater integration.
-	- Version bumps for testing updater and releases.
+## 0.1.4
+- Finalized initial public stable release.
 
-### 0.1.0
-	- Initial upload.
+## 0.1.1 - 0.1.3
+- Created GitHub updater integration.
+- Version bumps for testing updater and releases.
+
+## 0.1.0
+- Initial upload.
