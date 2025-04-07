@@ -1,7 +1,7 @@
 
 ![banner-1544x500](https://github.com/user-attachments/assets/2220933d-c599-4317-9f3c-51e3a973d847)
 
-#Description
+# Description
 
 **Contributors:** Bob Moore  
 **Tags:** block-extension, featured-image, plugin  
