@@ -32,7 +32,8 @@
         "phpstan/phpstan": "^1.10",
         "szepeviktor/phpstan-wordpress": "^1.3",
         "phpcsstandards/phpcsutils": "^1.0",
-        "wpify/scoper": "^3.2"
+        "wpify/scoper": "^3.2",
+        "10up/wp_mock": "*"
     },
     "scripts": {
         "phpstan": "./vendor/bin/phpstan analyze -c ./tests/phpstan.neon --memory-limit=2048M",

@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add fallback images to the featured image block
- * Version:           0.1.5
+ * Version:           0.1.6
  * Requires at least: 6.5
  * Tested up to:      6.7.2
  * Requires PHP:      8.2
@@ -44,16 +44,19 @@ run();
  * @return void
  */
 function init_updater() {
+
+	$plugin_url = trailingslashit( plugin_dir_url( __FILE__ ) );
+
 	$plugin_args = [
 		'github.user'    => 'bob-moore',
 		'github.repo'    => 'Featured-Image-Block-Fallback',
 		'github.branch'  => 'main',
-		'config.banners' => [
-			'low'  => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/banner-772x250.jpg',
-			'high' => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/banner-1544x500.jpg',
+		'plugin.banners' => [
+			'low'  => $plugin_url . 'assets/banner-772x250.jpg',
+			'high' => $plugin_url . 'assets/banner-1544x500.jpg',
 		],
-		'config.icons' => [
-			'default'  => trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/icon.png',
+		'plugin.icons' => [
+			'default'  => $plugin_url . 'assets/icon.png',
 		]
 	];
 	new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);

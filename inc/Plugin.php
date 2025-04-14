@@ -57,7 +57,7 @@ class Plugin {
         if ( ! defined( 'WP_SITEURL' ) || ! defined( 'ABSPATH' ) ) {
             return '';
         }
-
+        
         $rel_path = str_replace( ABSPATH, '', dirname( __DIR__ ) );
         $uri = trailingslashit( WP_SITEURL ) . $rel_path;
         
