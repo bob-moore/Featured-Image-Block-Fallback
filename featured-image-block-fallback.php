@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add fallback images to the featured image block
- * Version:           0.1.6
+ * Version:           0.1.7
  * Requires at least: 6.5
  * Tested up to:      6.7.2
  * Requires PHP:      8.2
@@ -35,7 +35,11 @@ require_once __DIR__ . '/vendor/scoped/scoper-autoload.php';
  * @return void
  */
 function run() {
-	new Plugin();
+	$plugin =new Plugin(
+		uri : plugin_dir_url( __FILE__ ),
+		path : plugin_dir_path( __FILE__ ),
+	);
+	$plugin->init();
 }
 run();
 /**
@@ -59,6 +63,6 @@ function init_updater() {
 			'default'  => $plugin_url . 'assets/icon.png',
 		]
 	];
-	new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);
+	// new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);
 }
 init_updater();

@@ -37,13 +37,21 @@ class Plugin {
      */
     protected ?int $current_fallback_id = null;
 
+    /**
+     * Initialize the plugin.
+     *
+     * Sets the URI and path of the plugin if not passed as arguments.
+     * Calls the init() method to register the block and enqueue assets.
+     *
+     * @param string $uri Optional path to the plugin URI.
+     * @param string $path Optional path to the plugin directory.
+     */
     public function __construct(
         string $uri = '',
         string $path = ''
     ) {
         $this->setUri( ! empty( $uri ) ? $uri : $this->inferUri() );
         $this->setPath( ! empty( $path ) ? $path : dirname( __DIR__ ) );
-        $this->init();
     }
     /**
      * Infer the URI of the plugin based on the WP_SITEURL and ABSPATH constants.
@@ -68,11 +76,13 @@ class Plugin {
      *
      * @param string $uri string URI to set.
      *
-     * @return void
+     * @return self
      */
-    protected function setUri( string $uri ): void
+    public function setUri( string $uri ): self
     {
         $this->uri = trailingslashit( $uri );
+
+        return $this;
     }
 
     /**
@@ -80,18 +90,20 @@ class Plugin {
      *
      * @param string $path string path to set.
      *
-     * @return void
+     * @return self
      */
-    protected function setPath( string $path ): void
+    public function setPath( string $path ): self
     {
         $this->path = trailingslashit( $path );
+
+        return $this;
     }
     /**
      * Initialize the plugin.
      *
      * @return void
      */
-    protected function init(): void
+    public function init(): void
     {
         add_action( 'enqueue_block_editor_assets', [ $this, 'enqueueBlockAssets' ] );
         add_action( 'init', [ $this, 'registerBlockAttributes' ] );
