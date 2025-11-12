@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:       Featured Image Block Fallback
- * Plugin URI:        https://bobmoore.dev
+ * Plugin URI:        https://github.com/bob-moore/Featured-Image-Block-Fallback
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add fallback images to the featured image block
- * Version:           0.1.7
+ * Version:           0.1.8
  * Requires at least: 6.5
  * Tested up to:      6.7.2
  * Requires PHP:      8.2
@@ -63,6 +63,6 @@ function init_updater() {
 			'default'  => $plugin_url . 'assets/icon.png',
 		]
 	];
-	// new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);
+	new Deps\MarkedEffect\GHPluginUpdater\Main( __FILE__, $plugin_args);
 }
 init_updater();

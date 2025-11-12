@@ -99,6 +99,10 @@ add_filter( 'featured_image_block_fallback_id', 'my_theme_featured_image_fallbac
 
 # Changelog
 
+## 0.1.8
+- Updated typo in plugin meta data.
+- Explicitly declared asset path for the updated in the main plugin file. 
+
 ## 0.1.5
 - Added external updater dependency. 
 
