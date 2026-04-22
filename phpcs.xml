@@ -19,6 +19,9 @@
 	</rule>
      <!-- Load PSR12 Coding Standard -->
      <rule ref="PSR12">
+          <exclude name="PSR2.Methods.FunctionDeclaration.Indent"/>
+          <exclude name="PSR2.Classes.ClassStructure.IndentedLine"/>
+          <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
           <exclude name="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket"/>
 		<exclude name="PSR2.Methods.FunctionCallSignature.SpaceAfterOpenBracket"/>
           <exclude name="PSR12.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace"/>

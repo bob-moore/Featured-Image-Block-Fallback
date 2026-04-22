@@ -51,7 +51,7 @@ Add the following to your `composer.json` file:
   }
 ],
 "require": {
-    "markedeffect/featured-image-block-fallback": "^0.1"
+    "bmd/featured-image-block-fallback": "^0.1"
 }
 ```
 ### **Step 2: Initialize the Class**
@@ -59,7 +59,7 @@ Add the following to your `composer.json` file:
 Once installed via Composer, you can initialize it in your theme or plugin:
 
 ```php
-$featured_image_fallback = new \MarkedEffect\FeaturedImageBlockFallback();
+$featured_image_fallback = new \Bmd\FeaturedImageBlockFallback();
 ```
 
 Note: If you include this package directly, you will be responsible for managing updates yourself, since it will no longer be part of the plugin ecosystem.

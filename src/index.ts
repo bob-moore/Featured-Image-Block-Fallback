@@ -2,6 +2,12 @@
  * Wordpress dependencies
  */
 import { addFilter } from '@wordpress/hooks';
-import { Edit } from './Edit.tsx';
+import { Edit } from './Edit';
+import { Attributes } from './Attributes';
 
-addFilter('editor.BlockEdit', 'marked-effect/with-fallback-image-edit', Edit );
+addFilter( 'editor.BlockEdit', 'bmd/with-fallback-image-edit', Edit );
+addFilter(
+	'blocks.registerBlockType',
+	'bmd/with-fallback-image-attributes',
+	Attributes
+);

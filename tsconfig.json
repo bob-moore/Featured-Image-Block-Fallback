@@ -1,17 +1,16 @@
 {
 	"compilerOptions": {
-		"outDir": "../dist",
+		"outDir": "../build",
 		"sourceMap": true,
 		"noImplicitAny": false,
 		"module": "commonjs",
-		"target": "es5",
+		"target": "es2019",
 		"jsx": "react-jsx",
 		"allowJs": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
-		"lib": [ "dom", "es5", "scripthost" ],
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
+		"lib": [ "dom", "es2019", "scripthost" ],
+		"ignoreDeprecations": "6.0"
 	}
 }

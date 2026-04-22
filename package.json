@@ -1,5 +1,5 @@
 {
-	"name": "@marked-effect/featured-image-block-fallback",
+	"name": "@bmd/featured-image-block-fallback",
 	"version": "0.1.2",
 	"description": "Block editor plugin to add a fallback image for the featured image block",
 	"author": "Bob Moore <bob@bobmoore.dev>",
@@ -13,32 +13,28 @@
 		"featured-image",
 		"gutenberg"
 	],
-	"homepage": "https://www.bob@bobmoore.dev",
+	"homepage": "https://www.bobmoore.dev",
 	"repository": "https://github.com/bob-moore/Featured-Image-Block-Fallback",
 	"bugs": "https://github.com/bob-moore/Featured-Image-Block-Fallback/issues",
+	"files": [
+		"plugin.php",
+		"build",
+		"assets",
+		"inc",
+		"vendor",
+		"readme.txt"
+	],
 	"devDependencies": {
 		"@wordpress/block-editor": "^14.16.0",
-		"@wordpress/blocks": "^14.10.0",
-		"@wordpress/edit-post": "^8.21.0",
-		"@wordpress/icons": "^10.21.0",
-		"@wordpress/plugins": "^7.21.0",
+		"@wordpress/components": "^32.6.0",
+		"@wordpress/compose": "^7.44.0",
+		"@wordpress/hooks": "^4.44.0",
 		"@wordpress/scripts": "^30.14.0",
-		"autoprefixer": "^10.4.20",
-		"clean-webpack-plugin": "^4.0.0",
-		"copy-webpack-plugin": "^12.0.2",
-		"cssnano": "^7.0.6",
-		"glob": "^11.0.1",
-		"mini-css-extract-plugin": "^2.9.2",
-		"postcss": "^8.5.3",
-		"postcss-assets": "^6.0.0",
-		"postcss-nested": "^7.0.2",
-		"postcss-pxtorem": "^6.1.0",
-		"pxtorem": "^1.0.0",
 		"sass": "^1.85.0",
-		"webpack-remove-empty-scripts": "^1.0.4"
+		"@types/react": "^18.3.28"
 	},
 	"scripts": {
-		"build": "npm run fix:css && npm run fix:js && npm run compile",
+		"build": "npm run fix:js && npm run compile",
 		"compile": "wp-scripts build",
 		"watch": "wp-scripts start",
 		"watch:hot": "wp-scripts start --hot",
@@ -52,21 +48,11 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"zip": "wp-scripts plugin-zip --root-folder='featured-image-block-fallback'",
-		"test:e2e": "wp-scripts test-e2e",
-		"test:unit": "wp-scripts test-unit-js"
+		"zip": "wp-scripts plugin-zip --root-folder='featured-image-block-fallback'"
 	},
 	"browserslist": [
 		"last 3 version",
 		"> 1%",
 		"not dead"
-	],
-	"files": [ 
-		"featured-image-block-fallback.php",
-		"build",
-		"assets",
-		"inc",
-		"vendor",
-		"readme.txt"
 	]
 }

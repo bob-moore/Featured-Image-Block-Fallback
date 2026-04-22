@@ -20,9 +20,10 @@ export type BlockAttributes<T = {}> = {
 	clientId: string;
 	name: string;
     featuredImageFallback: Image | null;
+    useFirstImageFromPost: boolean;
 } & T;
 
 export interface Image {
-    id: number;
+    id: number | string;
     url: string;
 }
