@@ -1,5 +1,5 @@
 {
-    "name": "marked-effect/featured-image-block-fallback",
+    "name": "bmd/featured-image-block-fallback",
     "description": "Provide a fallback image for the featured image block",
     "type": "library",
     "version": "0.2.0",
