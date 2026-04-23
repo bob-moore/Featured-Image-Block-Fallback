@@ -47,7 +47,12 @@ node_modules
 vendor
 *-lock.json
 *.lock
+!package-lock.json
+!composer.lock
+!composer-deps.lock
 *.claude
 # Other #
 ####################
 instructions
+!.github/instructions/
+!.github/instructions/*.instructions.md
