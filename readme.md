@@ -7,7 +7,7 @@
 **Tags:** block-extension, featured-image, plugin  
 **Requires at least:** 6.5  
 **Tested up to:** 6.7.2  
-**Stable tag:** 0.3.0  
+**Stable tag:** 0.3.1  
 **Requires PHP:** 8.2  
 **License:** GPL-2.0-or-later  
 **License URI:** [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)  
@@ -102,6 +102,11 @@ add_filter( 'featured_image_block_fallback_id', 'my_theme_featured_image_fallbac
 ```
 
 # Changelog
+
+## 0.3.1
+- Added scoped `bmd/github-wp-updater` bootstrap so GitHub releases can be delivered through the WordPress update UI.
+- Added `wpify/scoper` release packaging configuration and a dedicated scoped dependency manifest.
+- Refreshed release packaging workflow and prepared production release artifacts for GitHub distribution.
 
 ## 0.3.0
 - Added `BasicPlugin` interface; `FeaturedImageBlockFallback` now implements it.

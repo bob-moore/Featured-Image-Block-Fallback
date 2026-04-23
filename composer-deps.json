@@ -1,0 +1,16 @@
+{
+    "name": "bmd/featured-image-block-fallback-scoped-deps",
+    "description": "Scoped runtime dependencies for Featured Image Block Fallback",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "bmd/github-wp-updater": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    }
+}

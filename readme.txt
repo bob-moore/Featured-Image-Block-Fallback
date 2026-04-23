@@ -3,7 +3,7 @@ Contributors: Bob Moore
 Tags: block-extension, featured-image, gutenberg, block editor
 Requires at least: 6.5
 Tested up to: 6.7.2
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -71,6 +71,12 @@ Yes. Because `composer.json` defines this as a `library`, you can include it in 
 
 == Changelog ==
 
+= 0.3.1 =
+
+* Added scoped `bmd/github-wp-updater` bootstrap for GitHub-delivered WordPress updates.
+* Added `wpify/scoper` configuration and a dedicated scoped runtime dependency manifest.
+* Refreshed release packaging for production GitHub distribution.
+
 = 0.3.0 =
 
 * Added `BasicPlugin` interface; `FeaturedImageBlockFallback` now implements it.
@@ -103,6 +109,10 @@ Yes. Because `composer.json` defines this as a `library`, you can include it in 
 * Initial upload.
 
 == Upgrade Notice ==
+
+= 0.3.1 =
+
+Adds the scoped GitHub updater bootstrap and release packaging updates so future releases can be delivered through the native WordPress update UI.
 
 = 0.3.0 =
 

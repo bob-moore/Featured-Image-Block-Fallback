@@ -1,6 +1,6 @@
 {
-	"name": "@bmd/featured-image-block-fallback",
-	"version": "0.1.2",
+	"name": "featured-image-block-fallback",
+	"version": "0.3.1",
 	"description": "Block editor plugin to add a fallback image for the featured image block",
 	"author": "Bob Moore <bob@bobmoore.dev>",
 	"license": "GPL-2.0-or-later",
