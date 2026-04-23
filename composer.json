@@ -2,7 +2,6 @@
     "name": "bmd/featured-image-block-fallback",
     "description": "Provide a fallback image for the featured image block",
     "type": "library",
-    "version": "0.2.0",
     "author": "Bob Moore <bob@bobmoore.dev>",
     "homepage": "https://github.com/bob-moore/Featured-Image-Block-Fallback",
     "license": "GPL-2.0-or-later",

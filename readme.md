@@ -7,7 +7,7 @@
 **Tags:** block-extension, featured-image, plugin  
 **Requires at least:** 6.5  
 **Tested up to:** 6.7.2  
-**Stable tag:** 0.1.4  
+**Stable tag:** 0.3.0  
 **Requires PHP:** 8.2  
 **License:** GPL-2.0-or-later  
 **License URI:** [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)  
@@ -59,7 +59,11 @@ Add the following to your `composer.json` file:
 Once installed via Composer, you can initialize it in your theme or plugin:
 
 ```php
-$featured_image_fallback = new \Bmd\FeaturedImageBlockFallback();
+$plugin = new \Bmd\FeaturedImageBlockFallback(
+    plugin_dir_url( __FILE__ ),
+    plugin_dir_path( __FILE__ )
+);
+$plugin->mount();
 ```
 
 Note: If you include this package directly, you will be responsible for managing updates yourself, since it will no longer be part of the plugin ecosystem.
@@ -98,6 +102,15 @@ add_filter( 'featured_image_block_fallback_id', 'my_theme_featured_image_fallbac
 ```
 
 # Changelog
+
+## 0.3.0
+- Added `BasicPlugin` interface; `FeaturedImageBlockFallback` now implements it.
+- Renamed `$uri`/`setUri()` to `$url`/`setUrl()` for consistency with the interface.
+- Constructor now accepts URL and path directly with sanitized defaults.
+- Added `buildPath()` and `buildUrl()` with filterable asset resolution (`featured_image_block_fallback_plugin_path` / `featured_image_block_fallback_plugin_url`).
+- Added `getScriptAssets()` helper supporting both `index.asset.php` and `index.assets.php` naming conventions.
+- Fixed plugin bootstrap to pass URL and path to the constructor instead of `mount()`.
+- Removed hardcoded `"version"` field from `composer.json`.
 
 ## 0.1.8
 - Updated typo in plugin meta data.
