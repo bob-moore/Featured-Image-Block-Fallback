@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-	<!-- generator="WordPress/6.5.4" created="2024-06-23 20:22" -->
+	<!-- generator="WordPress/6.7" created="2026-04-27 00:00" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -26,202 +26,263 @@
 >
 
 <channel>
-	<title>My WordPress Website</title>
-	<link>https://playground.wordpress.net/scope:0.1313479475293886</link>
+	<title>Featured Image Block Fallback</title>
+	<link>https://example.com</link>
 	<description></description>
-	<pubDate>Sun, 23 Jun 2024 20:22:47 +0000</pubDate>
+	<pubDate>Sun, 27 Apr 2026 00:00:00 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
-	<wp:base_site_url>https://playground.wordpress.net/scope:0.1313479475293886</wp:base_site_url>
-	<wp:base_blog_url>https://playground.wordpress.net/scope:0.1313479475293886</wp:base_blog_url>
+	<wp:base_site_url>https://example.com</wp:base_site_url>
+	<wp:base_blog_url>https://example.com</wp:base_blog_url>
 
-		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[admin]]></wp:author_login><wp:author_email><![CDATA[admin@localhost.com]]></wp:author_email><wp:author_display_name><![CDATA[admin]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[admin]]></wp:author_login><wp:author_email><![CDATA[wordpress@example.com]]></wp:author_email><wp:author_display_name><![CDATA[admin]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
-				
-	<generator>https://wordpress.org/?v=6.5.4</generator>
+	<generator>https://wordpress.org/?v=6.7</generator>
 
-		<item>
-		<title><![CDATA[Sample Page]]></title>
-		<link>https://playground.wordpress.net/scope:0.1313479475293886/?page_id=2</link>
-		<pubDate>Mon, 10 Jun 2024 15:11:38 +0000</pubDate>
+	<!-- ============================================================
+	     ATTACHMENTS
+	     ID 20 — featured image used by post 11
+	     ID 35 — fallback image referenced in the query block
+	     ============================================================ -->
+
+	<item>
+		<title><![CDATA[Post Featured Image]]></title>
+		<link>https://example.com/?attachment_id=20</link>
+		<pubDate>Sun, 27 Apr 2026 00:00:00 +0000</pubDate>
 		<dc:creator><![CDATA[admin]]></dc:creator>
-		<guid isPermaLink="false">http://127.0.0.1:9400/?page_id=2</guid>
+		<guid isPermaLink="false">https://picsum.photos/seed/fibf-post/800/450</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>20</wp:post_id>
+		<wp:post_date><![CDATA[2026-04-27 00:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-04-27 00:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[post-featured-image]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:attachment_url><![CDATA[https://picsum.photos/seed/fibf-post/800/450]]></wp:attachment_url>
+	</item>
+
+	<item>
+		<title><![CDATA[Fallback Image]]></title>
+		<link>https://example.com/?attachment_id=35</link>
+		<pubDate>Sun, 27 Apr 2026 00:00:00 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://picsum.photos/seed/fibf-fallback/800/450</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>35</wp:post_id>
+		<wp:post_date><![CDATA[2026-04-27 00:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-04-27 00:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[fallback-image]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:attachment_url><![CDATA[https://picsum.photos/seed/fibf-fallback/800/450]]></wp:attachment_url>
+	</item>
+
+	<!-- ============================================================
+	     POSTS
+	     Post 11 — has a featured image set (attachment 20)
+	     Posts 12–14 — no featured image; fallback image will show
+	     ============================================================ -->
+
+	<item>
+		<title><![CDATA[The Art of Minimalist Web Design]]></title>
+		<link>https://example.com/?p=11</link>
+		<pubDate>Wed, 15 Jan 2026 12:00:00 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://example.com/?p=11</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- wp:paragraph -->
-<p>This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:</p>
+<p>Minimalism in web design is about stripping away the unnecessary so the necessary can speak. A clean layout, generous white space, and a limited color palette all contribute to interfaces that feel effortless to use.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
-<p>Hi there! I'm a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like piña coladas. (And gettin' caught in the rain.)</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->
-
 <!-- wp:paragraph -->
-<p>...or something like this:</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
-<p>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->
-
-<!-- wp:paragraph -->
-<p>As a new WordPress user, you should go to <a href="http://127.0.0.1:9400/wp-admin/">your dashboard</a> to delete this page and create new pages for your content. Have fun!</p>
+<p>This post has a featured image set. The block will display that image directly and the fallback will not be used.</p>
 <!-- /wp:paragraph -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>2</wp:post_id>
-		<wp:post_date><![CDATA[2024-06-10 15:11:38]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2024-06-10 15:11:38]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2024-06-23 20:21:38]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2024-06-23 20:21:38]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<excerpt:encoded><![CDATA[Minimalism in web design is about stripping away the unnecessary so the necessary can speak.]]></excerpt:encoded>
+		<wp:post_id>11</wp:post_id>
+		<wp:post_date><![CDATA[2026-01-15 12:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-01-15 12:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-01-15 12:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-01-15 12:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
 		<wp:ping_status><![CDATA[open]]></wp:ping_status>
-		<wp:post_name><![CDATA[sample-page]]></wp:post_name>
+		<wp:post_name><![CDATA[art-of-minimalist-web-design]]></wp:post_name>
 		<wp:status><![CDATA[publish]]></wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
 		<wp:post_password><![CDATA[]]></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-														<wp:postmeta>
-		<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
-		<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+			<wp:meta_value><![CDATA[20]]></wp:meta_value>
 		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[Privacy Policy]]></title>
-		<link>https://playground.wordpress.net/scope:0.1313479475293886/?page_id=3</link>
-		<pubDate>Mon, 10 Jun 2024 15:11:38 +0000</pubDate>
+	</item>
+
+	<item>
+		<title><![CDATA[Typography Fundamentals for Developers]]></title>
+		<link>https://example.com/?p=12</link>
+		<pubDate>Mon, 10 Feb 2026 12:00:00 +0000</pubDate>
 		<dc:creator><![CDATA[admin]]></dc:creator>
-		<guid isPermaLink="false">http://127.0.0.1:9400/?page_id=3</guid>
+		<guid isPermaLink="false">https://example.com/?p=12</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p>Choosing the right typeface is one of the highest-leverage decisions in any design. Readability, hierarchy, and tone all flow from that single choice — and developers who understand type can build interfaces that communicate clearly without a designer in the room.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This post has no featured image. The fallback image configured in the query block will be displayed in its place.</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[Choosing the right typeface is one of the highest-leverage decisions in any design.]]></excerpt:encoded>
+		<wp:post_id>12</wp:post_id>
+		<wp:post_date><![CDATA[2026-02-10 12:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-02-10 12:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-02-10 12:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-02-10 12:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[open]]></wp:ping_status>
+		<wp:post_name><![CDATA[typography-fundamentals-for-developers]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+	</item>
+
+	<item>
+		<title><![CDATA[Understanding Color Theory]]></title>
+		<link>https://example.com/?p=13</link>
+		<pubDate>Wed, 05 Mar 2026 12:00:00 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://example.com/?p=13</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p>Color is the fastest language a designer speaks. A well-chosen palette creates mood, guides attention, and builds brand recognition — all before a single word is read. Understanding the relationships between hues gives you a framework for making those choices deliberately.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This post has no featured image. The fallback image configured in the query block will be displayed in its place.</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[Color is the fastest language a designer speaks. A well-chosen palette creates mood, guides attention, and builds brand recognition.]]></excerpt:encoded>
+		<wp:post_id>13</wp:post_id>
+		<wp:post_date><![CDATA[2026-03-05 12:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-03-05 12:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-03-05 12:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-03-05 12:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[open]]></wp:ping_status>
+		<wp:post_name><![CDATA[understanding-color-theory]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+	</item>
+
+	<item>
+		<title><![CDATA[The Importance of White Space]]></title>
+		<link>https://example.com/?p=14</link>
+		<pubDate>Wed, 01 Apr 2026 12:00:00 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://example.com/?p=14</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:paragraph -->
+<p>White space — the empty areas between and around design elements — is not wasted space. It gives content room to breathe, reduces cognitive load, and signals to the reader where to look next. Removing it is rarely an improvement.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This post has no featured image. The fallback image configured in the query block will be displayed in its place.</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[White space is not wasted space. It gives content room to breathe, reduces cognitive load, and signals to the reader where to look next.]]></excerpt:encoded>
+		<wp:post_id>14</wp:post_id>
+		<wp:post_date><![CDATA[2026-04-01 12:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-04-01 12:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-04-01 12:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-04-01 12:00:00]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[open]]></wp:ping_status>
+		<wp:post_name><![CDATA[the-importance-of-white-space]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+	</item>
+
+	<!-- ============================================================
+	     PAGE — ID 10
+	     Query loop with core/post-featured-image configured to use
+	     the fallback (attachment 35) for posts without a thumbnail.
+	     ============================================================ -->
+
+	<item>
+		<title><![CDATA[Featured Image Block Fallback Demo]]></title>
+		<link>https://example.com/?page_id=10</link>
+		<pubDate>Sun, 27 Apr 2026 00:00:00 +0000</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<guid isPermaLink="false">https://example.com/?page_id=10</guid>
 		<description></description>
 		<content:encoded><![CDATA[<!-- wp:heading -->
-<h2 class="wp-block-heading">Who we are</h2>
+<h2 class="wp-block-heading">Posts With Fallback Featured Images</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>Our website address is: http://127.0.0.1:9400.</p>
+<p>The query below displays four posts. One post has a featured image set and displays it directly. The other three have no featured image — the <strong>Featured Image Block Fallback</strong> plugin supplies the shared fallback image configured in the block settings.</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Comments</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor&#8217;s IP address and browser user agent string to help spam detection.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Media</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Cookies</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select &quot;Remember Me&quot;, your login will persist for two weeks. If you log out of your account, the login cookies will be removed.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Embedded content from other websites</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Who we share your data with</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>If you request a password reset, your IP address will be included in the reset email.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">How long we retain your data</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">What rights you have over your data</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Where your data is sent</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p><strong class="privacy-policy-tutorial">Suggested text: </strong>Visitor comments may be checked through an automated spam detection service.</p>
-<!-- /wp:paragraph -->
-]]></content:encoded>
+
+<!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false}} -->
+<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}}},"layout":{"inherit":false}} -->
+<div class="wp-block-group" style="padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px"><!-- wp:post-featured-image {"aspectRatio":"16/9","useFirstImageFromPost":true,"featuredImageFallback":{"id":35,"url":"https://picsum.photos/seed/fibf-fallback/800/450"}} /-->
+
+<!-- wp:post-title {"isLink":true} /-->
+
+<!-- wp:post-excerpt /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template --></div>
+<!-- /wp:query -->]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>3</wp:post_id>
-		<wp:post_date><![CDATA[2024-06-10 15:11:38]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2024-06-10 15:11:38]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2024-06-10 15:11:38]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2024-06-10 15:11:38]]></wp:post_modified_gmt>
+		<wp:post_id>10</wp:post_id>
+		<wp:post_date><![CDATA[2026-04-27 00:00:00]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2026-04-27 00:00:00]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2026-04-27 00:00:00]]></wp:post_modified_gmt>
 		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
 		<wp:ping_status><![CDATA[open]]></wp:ping_status>
-		<wp:post_name><![CDATA[privacy-policy]]></wp:post_name>
-		<wp:status><![CDATA[draft]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-														<wp:postmeta>
-		<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
-		<wp:meta_value><![CDATA[default]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[Enable Button Icons]]></title>
-		<link>https://playground.wordpress.net/scope:0.1313479475293886/?page_id=7</link>
-		<pubDate>Sun, 23 Jun 2024 20:22:11 +0000</pubDate>
-		<dc:creator><![CDATA[admin]]></dc:creator>
-		<guid isPermaLink="false">https://playground.wordpress.net/scope:0.1313479475293886/?page_id=7</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"icon":"cloud"} -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Download</a></div>
-<!-- /wp:button -->
-
-<!-- wp:button {"icon":"external-arrow"} -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Live preview</a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>7</wp:post_id>
-		<wp:post_date><![CDATA[2024-06-23 20:22:11]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2024-06-23 20:22:11]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2024-06-23 20:22:11]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2024-06-23 20:22:11]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[enable-button-icons]]></wp:post_name>
+		<wp:post_name><![CDATA[featured-image-fallback-demo]]></wp:post_name>
 		<wp:status><![CDATA[publish]]></wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>
 		<wp:post_type><![CDATA[page]]></wp:post_type>
 		<wp:post_password><![CDATA[]]></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-														</item>
-				</channel>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+
+</channel>
 </rss>
-	

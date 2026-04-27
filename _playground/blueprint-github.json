@@ -1,6 +1,6 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
-	"landingPage": "/wp-admin/post.php?post=7&action=edit",
+	"landingPage": "/featured-image-fallback-demo/",
 	"login": true,
 	"features": {
 		"networking": true
@@ -17,14 +17,15 @@
 		{
 			"step": "setSiteOptions",
 			"options": {
-				"blogname": "Enable Button Icons"
+				"blogname": "Featured Image Block Fallback",
+				"permalink_structure": "/%postname%/"
 			}
 		},
 		{
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "url",
-				"url": "https://github.com/bob-moore/enable-button-icons/releases/latest/download/enable-button-icons.zip"
+				"url": "https://github.com/bob-moore/Featured-Image-Block-Fallback/releases/latest/download/featured-image-block-fallback.zip"
 			}
 		},
 		{
@@ -38,7 +39,7 @@
 			"step": "importWxr",
 			"file": {
 				"resource": "url",
-				"url": "https://raw.githubusercontent.com/bob-moore/enable-button-icons/main/_playground/demo-content.xml"
+				"url": "https://raw.githubusercontent.com/bob-moore/Featured-Image-Block-Fallback/main/_playground/demo-content.xml"
 			}
 		}
 	]
