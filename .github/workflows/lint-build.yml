@@ -34,7 +34,7 @@ jobs:
               run: npm run compile
 
     php:
-        name: PHP Lint and Test
+        name: PHP Tests
         runs-on: ubuntu-latest
 
         steps:
@@ -50,8 +50,11 @@ jobs:
             - name: Install dependencies
               run: composer install --no-interaction --prefer-dist
 
-            - name: Lint
+            - name: PHPCodeSniffer
               run: composer phpsniff
 
-            - name: Test
+            - name: Static Analysis
+              run: composer phpstan
+
+            - name: PHPUnit
               run: composer test
