@@ -15,7 +15,28 @@ namespace Bmd;
 
 interface BasicPlugin
 {
-    public function mount(): void;
-    public function setUrl( string $url ): void;
-    public function setPath( string $path ): void;
+	/**
+	 * Register WordPress hooks.
+	 *
+	 * @return void
+	 */
+	public function mount(): void;
+
+	/**
+	 * Set the plugin URL.
+	 *
+	 * @param string $url URL to set.
+	 *
+	 * @return void
+	 */
+	public function setUrl( string $url ): void;
+
+	/**
+	 * Set the plugin path.
+	 *
+	 * @param string $path Path to set.
+	 *
+	 * @return void
+	 */
+	public function setPath( string $path ): void;
 }

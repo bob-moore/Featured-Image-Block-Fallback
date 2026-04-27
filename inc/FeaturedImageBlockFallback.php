@@ -229,13 +229,7 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 * Used to check the conditions, and conditionally set the fallback image.
 	 *
 	 * @param array<string, mixed> $context Default context.
-	 * @param array{
-	 *   blockName?: string,
-	 *   attrs?: array{
-	 *     featuredImageFallback?: array{id?: int|string},
-	 *     useFirstImageFromPost?: bool
-	 *   }
-	 * } $block The block attributes.
+	 * @param array<string, mixed> $block   The block attributes.
 	 *
 	 * @return array<string, mixed> The (un)modified block context.
 	 */
@@ -285,11 +279,9 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	/**
 	 * Clear the active fallback after the post featured image block has rendered.
 	 *
-	 * @param string $block_content The block content.
-	 * @param array{
-	 *   blockName?: string
-	 * } $block The block attributes.
-	 * @param \WP_Block|null $instance Block instance.
+	 * @param string               $block_content The block content.
+	 * @param array<string, mixed> $block         The block attributes.
+	 * @param \WP_Block|null       $instance      Block instance.
 	 *
 	 * @return string The unmodified block content.
 	 */
