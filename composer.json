@@ -34,9 +34,15 @@
             "composerlock": "composer-deps.lock"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Bmd\\Tests\\": "./tests"
+        }
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
         "phpunit/phpunit": "^9.6",
+        "10up/wp_mock": "^1.0",
         "symfony/var-dumper": "*",
         "wp-coding-standards/wpcs": "^3.0",
         "phpstan/phpstan": "^1.10",
@@ -45,6 +51,7 @@
         "wpify/scoper": "*"
     },
     "scripts": {
+        "test": "./vendor/bin/phpunit",
         "phpstan": "./vendor/bin/phpstan analyze -c ./phpstan.neon --memory-limit=2048M",
         "phpsniff": "./vendor/bin/phpcs ./inc -v --standard='./phpcs.xml'",
         "phpsniff:fix": "./vendor/bin/phpcbf ./inc -v --standard='./phpcs.xml'",
