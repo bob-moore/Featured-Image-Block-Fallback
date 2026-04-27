@@ -1,135 +1,137 @@
-
 ![banner-1544x500](https://github.com/user-attachments/assets/2220933d-c599-4317-9f3c-51e3a973d847)
 
-# Description
+# Featured Image Block Fallback
 
-**Contributors:** Bob Moore  
-**Tags:** block-extension, featured-image, plugin  
-**Requires at least:** 6.5  
-**Tested up to:** 6.7.2  
-**Stable tag:** 0.3.1  
-**Requires PHP:** 8.2  
-**License:** GPL-2.0-or-later  
-**License URI:** [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)  
+![Version](https://img.shields.io/badge/version-0.3.1-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-3858e9?logo=wordpress&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+![Lint and Build](https://github.com/bob-moore/Featured-Image-Block-Fallback/actions/workflows/lint-build.yml/badge.svg)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.3.1-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Featured-Image-Block-Fallback/main/_playground/blueprint-github.json)
 
-## Featured Image Block Fallback
+Add a fallback image to the core/post-featured-image block for posts that have no featured image set.
 
-The WordPress core/post-featured-image block is great—until a post doesn’t have a featured image. By default, it simply renders nothing, leaving an awkward gap in your design.
+## What this does
 
-Featured Image Block Fallback solves this by allowing you to specify a fallback image that will display whenever a post lacks a featured image. No unnecessary bloat, no complex settings—just a simple, effective solution to keep your layouts looking polished at all times.
+The WordPress `core/post-featured-image` block is great—until a post doesn't have a featured image. By default, it simply renders nothing, leaving an awkward gap in your design.
 
-No extra setup, no global settings—just a simple enhancement that ensures your posts always have a visual presence. Whether you’re building custom templates, using query loops, or designing unique layouts, this plugin ensures your site looks polished, even when a featured image is missing.
+Featured Image Block Fallback solves this by allowing you to specify a fallback image directly on the block. It displays whenever a post lacks a featured image—no global settings, no unnecessary bloat.
 
-## Features:
+Whether you're building custom templates, using query loops, or designing unique layouts, this plugin ensures your site looks polished even when a featured image is missing.
 
-✔ Adds a fallback image option to the core/post-featured-image block.
-✔ Ensures a consistent and professional look across your site.
-✔ Lightweight and efficient—does exactly what it says, nothing more.
+## Features
 
-## Installation  
+- Adds a fallback image control to the `core/post-featured-image` block in the editor
+- Optionally skips the fallback when the post already contains an inline image
+- Filterable fallback ID (`featured_image_block_fallback_id`) for per-post-type customization
+- Works as a standalone plugin or reusable Composer dependency
 
-1. Download the [latest release](https://github.com/bob-moore/Featured-Image-Block-Fallback/releases) zip file.  
-2. Upload the plugin files to the `/wp-content/plugins/` directory, or install it via "Upload Plugin" in WordPress.  
-3. Activate the plugin through the 'Plugins' screen in WordPress.  
+## Requirements
 
-## Updates  
-This plugin is **not available in the WordPress Plugin Repository**. Instead, updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback). If you'd like to submit it to the repository yourself and provide support, feel free to fork it!
+- WordPress 6.5+
+- PHP 8.2+
 
-## Using in Your Own Plugin or Theme (Composer Support)  
+## Installation
 
-If you're a developer and want to **include this functionality directly in your own theme or plugin** without requiring an additional plugin install, you can import it as a Composer dependency.  
+### As a WordPress plugin
 
-### **Step 1: Add to composer.json**  
+1. Download the latest release ZIP from the [GitHub Releases page](https://github.com/bob-moore/Featured-Image-Block-Fallback/releases).
+2. In WordPress admin, go to **Plugins > Add New Plugin > Upload Plugin**.
+3. Upload the ZIP and activate **Featured Image Block Fallback**.
 
-Add the following to your `composer.json` file:  
+### As a Composer dependency
 
-```json
-"repositories": [
-  {
-    "type": "git",
-    "url": "https://github.com/bob-moore/Featured-Image-Block-Fallback"
-  }
-],
-"require": {
-    "bmd/featured-image-block-fallback": "^0.1"
-}
+1. Require the package from your consuming plugin or theme:
+
+```bash
+composer require bmd/featured-image-block-fallback
 ```
-### **Step 2: Initialize the Class**
 
-Once installed via Composer, you can initialize it in your theme or plugin:
+2. Instantiate the plugin class and register its hooks in your bootstrap code:
 
 ```php
-$plugin = new \Bmd\FeaturedImageBlockFallback(
+<?php
+
+use Bmd\FeaturedImageBlockFallback;
+
+$plugin = new FeaturedImageBlockFallback(
     plugin_dir_url( __FILE__ ),
     plugin_dir_path( __FILE__ )
 );
+
 $plugin->mount();
 ```
 
-Note: If you include this package directly, you will be responsible for managing updates yourself, since it will no longer be part of the plugin ecosystem.
+3. Ensure Composer autoloading is active in the consuming plugin or theme.
 
-## Frequently Asked Questions  
+> **Note:** When included as a Composer dependency you are responsible for managing updates yourself, since it will no longer be part of the WordPress plugin ecosystem.
 
-### **Is this plugin available on the official WordPress plugin repository?**  
-No, this plugin is distributed via GitHub only. If you’d like to submit it to the repository and maintain support, you’re welcome to fork it.  
+## Updates
 
-### **Will I receive updates?**  
-Yes. Updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback) instead of the WordPress Plugin Repository.  
+This plugin is **not available in the WordPress Plugin Repository**. Updates are pushed directly from [GitHub](https://github.com/bob-moore/Featured-Image-Block-Fallback). If you'd like to submit it to the repository and provide support, feel free to fork it.
 
-### **Can I set a different fallback image for different post types?**  
-Yes! Since the fallback image is set directly on the block itself, you can assign different fallback images for each query, loop, or post template where the `core/post-featured-image` block is used.  
+## Frequently Asked Questions
 
-Additionally, developers can customize the fallback image dynamically using the `featured_image_block_fallback_id` filter. Here’s an example of how to set a different fallback image for a specific post type:  
+### Can I set a different fallback image for different post types?
+
+Yes. Since the fallback image is set directly on the block, you can assign different fallback images for each query loop or post template that uses `core/post-featured-image`.
+
+Developers can also customize the fallback dynamically using the `featured_image_block_fallback_id` filter:
 
 ```php
-/**
- * Fallback image ID filter.
- *
- * @param int   $fallback_id The fallback image ID.
- * @param array $block The block attributes.
- *
- * @return int The fallback image ID.
- */
-function my_theme_featured_image_fallback( int $fallback_id, array $block ): int
-{
+add_filter( 'featured_image_block_fallback_id', function( int $fallback_id, array $block ): int {
     if ( get_post_type( get_the_ID() ) === 'my-custom-post-type' ) {
-        $fallback_id = 123; // Replace with your fallback image ID.
+        return 123; // Replace with your fallback image ID.
     }
-
     return $fallback_id;
-}
-add_filter( 'featured_image_block_fallback_id', 'my_theme_featured_image_fallback', 10, 2 );
+}, 10, 2 );
 ```
 
-# Changelog
+### Can I override the asset path or URL without subclassing?
 
-## 0.3.1
+Yes. Filter `featured_image_block_fallback_plugin_path` or `featured_image_block_fallback_plugin_url` to redirect asset resolution.
+
+### Is this plugin available on the official WordPress plugin repository?
+
+No. It is distributed via GitHub only. If you'd like to submit it to the repository and maintain support, you're welcome to fork it.
+
+## Changelog
+
+### 0.3.1
+
 - Added scoped `bmd/github-wp-updater` bootstrap so GitHub releases can be delivered through the WordPress update UI.
 - Added `wpify/scoper` release packaging configuration and a dedicated scoped dependency manifest.
 - Refreshed release packaging workflow and prepared production release artifacts for GitHub distribution.
 
-## 0.3.0
+### 0.3.0
+
 - Added `BasicPlugin` interface; `FeaturedImageBlockFallback` now implements it.
 - Renamed `$uri`/`setUri()` to `$url`/`setUrl()` for consistency with the interface.
 - Constructor now accepts URL and path directly with sanitized defaults.
 - Added `buildPath()` and `buildUrl()` with filterable asset resolution (`featured_image_block_fallback_plugin_path` / `featured_image_block_fallback_plugin_url`).
 - Added `getScriptAssets()` helper supporting both `index.asset.php` and `index.assets.php` naming conventions.
 - Fixed plugin bootstrap to pass URL and path to the constructor instead of `mount()`.
-- Removed hardcoded `"version"` field from `composer.json`.
+- Removed hardcoded `version` field from `composer.json`.
 
-## 0.1.8
-- Updated typo in plugin meta data.
-- Explicitly declared asset path for the updated in the main plugin file. 
+### 0.1.8
 
-## 0.1.5
-- Added external updater dependency. 
+- Updated typo in plugin metadata.
+- Explicitly declared asset path for the updater in the main plugin file.
 
-## 0.1.4
+### 0.1.5
+
+- Added external updater dependency.
+
+### 0.1.4
+
 - Finalized initial public stable release.
 
-## 0.1.1 - 0.1.3
+### 0.1.0 – 0.1.3
+
 - Created GitHub updater integration.
 - Version bumps for testing updater and releases.
-
-## 0.1.0
 - Initial upload.
+
+## License
+
+GPL-2.0-or-later. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html).

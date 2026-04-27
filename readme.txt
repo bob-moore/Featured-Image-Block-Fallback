@@ -1,3 +1,5 @@
+![banner-1544x500](https://github.com/user-attachments/assets/2220933d-c599-4317-9f3c-51e3a973d847)
+
 === Featured Image Block Fallback ===
 Contributors: Bob Moore
 Tags: block-extension, featured-image, gutenberg, block editor
@@ -7,6 +9,13 @@ Stable tag: 0.3.1
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+![Version](https://img.shields.io/badge/version-0.3.1-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-3858e9?logo=wordpress&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+![Lint and Build](https://github.com/bob-moore/Featured-Image-Block-Fallback/actions/workflows/lint-build.yml/badge.svg)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.3.1-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Featured-Image-Block-Fallback/main/_playground/blueprint-github.json)
 
 Add a fallback image to the core/post-featured-image block for posts that have no featured image set.
 
