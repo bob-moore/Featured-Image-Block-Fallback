@@ -29,13 +29,6 @@
 			}
 		},
 		{
-			"step": "installTheme",
-			"themeZipFile": {
-				"resource": "wordpress.org/themes",
-				"slug": "twentytwentyfour"
-			}
-		},
-		{
 			"step": "importWxr",
 			"file": {
 				"resource": "url",
