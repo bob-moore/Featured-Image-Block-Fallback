@@ -19,11 +19,18 @@ export type BlockAttributes<T = {}> = {
 	className: string;
 	clientId: string;
 	name: string;
-    featuredImageFallback: Image | null;
-    useFirstImageFromPost: boolean;
+	aspectRatio?: string;
+	featuredImageFallback: Image | null;
+	height?: string;
+	isLink?: boolean;
+	linkTarget?: string;
+	scale?: string;
+	sizeSlug?: string;
+	useFirstImageFromPost: boolean;
+	width?: string;
 } & T;
 
 export interface Image {
-    id: number | string;
-    url: string;
+	id: number | string;
+	url: string;
 }

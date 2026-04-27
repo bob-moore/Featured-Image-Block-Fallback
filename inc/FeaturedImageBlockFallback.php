@@ -163,8 +163,9 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	public function mount(): void
 	{
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueueBlockAssets' ] );
-		add_filter( 'pre_render_block', [ $this, 'preProcessBlock' ], 10, 2 );
+		add_filter( 'render_block_context', [ $this, 'preProcessBlock' ], 10, 2 );
 		add_filter( 'post_thumbnail_id', [ $this, 'filterPostThumbnailId' ], 10, 2 );
+		add_filter( 'render_block', [ $this, 'resetPostThumbnailFallback' ], 10, 3 );
 	}
 
 	/**
@@ -223,11 +224,11 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	}
 
 	/**
-	 * Preprocess the block content.
+	 * Preprocess the block context.
 	 *
-	 * Used to check the conditions, and conditionally add the necessary filter.
+	 * Used to check the conditions, and conditionally set the fallback image.
 	 *
-	 * @param string|null $block_content The block content.
+	 * @param array<string, mixed> $context Default context.
 	 * @param array{
 	 *   blockName?: string,
 	 *   attrs?: array{
@@ -236,18 +237,18 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 *   }
 	 * } $block The block attributes.
 	 *
-	 * @return string|null The (un)modified block content.
+	 * @return array<string, mixed> The (un)modified block context.
 	 */
-	public function preProcessBlock( string|null $block_content, array $block ): ?string
+	public function preProcessBlock( array $context, array $block ): array
 	{
-		if ( '' !== $block_content ) {
-			return $block_content;
+		if ( 'core/post-featured-image' !== ( $block['blockName'] ?? '' ) ) {
+			return $context;
 		}
 
-		$post_id = intval( $block['context']['postId'] ?? get_the_id() );
+		$post_id = intval( $context['postId'] ?? get_the_id() );
 
 		if ( ! $post_id || (int) get_post_meta( $post_id, '_thumbnail_id', true ) ) {
-			return $block_content;
+			return $context;
 		}
 
 		$fallback_id = apply_filters(
@@ -257,22 +258,52 @@ class FeaturedImageBlockFallback implements BasicPlugin
 		);
 
 		if ( empty( $fallback_id ) ) {
-			return $block_content;
+			return $context;
 		}
 
 		if ( $block['attrs']['useFirstImageFromPost'] ?? false ) {
-			$content_post = get_post( get_the_id() );
+			$content_post = get_post( $post_id );
+			if ( ! $content_post instanceof \WP_Post ) {
+				return $context;
+			}
+
 			$content      = $content_post->post_content;
 			$processor    = new \WP_HTML_Tag_Processor( $content );
 			/**
 			 * If it has an image in the content, we don't need to use the manual fallback
 			 */
 			if ( $processor->next_tag( [ 'tag_name' => 'img' ] ) ) {
-				return $block_content;
+				return $context;
 			}
 		}
 
-		$this->image_map[ get_the_id() ] = intval( $fallback_id );
+		$this->image_map[ $post_id ] = intval( $fallback_id );
+
+		return $context;
+	}
+
+	/**
+	 * Clear the active fallback after the post featured image block has rendered.
+	 *
+	 * @param string $block_content The block content.
+	 * @param array{
+	 *   blockName?: string
+	 * } $block The block attributes.
+	 * @param \WP_Block|null $instance Block instance.
+	 *
+	 * @return string The unmodified block content.
+	 */
+	public function resetPostThumbnailFallback( string $block_content, array $block, ?\WP_Block $instance = null ): string
+	{
+		if ( 'core/post-featured-image' !== ( $block['blockName'] ?? '' ) ) {
+			return $block_content;
+		}
+
+		$post_id = intval( $instance->context['postId'] ?? get_the_id() );
+
+		if ( $post_id ) {
+			unset( $this->image_map[ $post_id ] );
+		}
 
 		return $block_content;
 	}

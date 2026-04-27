@@ -74,3 +74,14 @@
     flex-grow: 1;
     justify-content: center;
 }
+
+.fallbackPreview {
+    display: block;
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+    }
+}

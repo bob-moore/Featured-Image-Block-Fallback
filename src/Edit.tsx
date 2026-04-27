@@ -16,14 +16,8 @@ import { PanelBody, Button, ToggleControl } from '@wordpress/components';
  * Internal Dependencies
  */
 import { BlockEditProps, BlockAttributes, Image } from './types';
+import { FallbackPreview } from './FallbackPreview';
 import style from './edit.module.scss';
-
-const panelState = {
-	current: false,
-	toggle: () => {
-		panelState.current = ! panelState.current;
-	},
-};
 
 /**
  * Add fallback panel
@@ -45,10 +39,6 @@ export const Edit = createHigherOrderComponent<
 			setAttributes,
 		} = props;
 
-		const handlePanelToggle = () => {
-			panelState.toggle();
-		};
-
 		const handleChange = ( media: Image ) => {
 			const value = media
 				? {
@@ -58,10 +48,6 @@ export const Edit = createHigherOrderComponent<
 				: { id: '', url: '' };
 			setAttributes( { featuredImageFallback: value } );
 		};
-
-		// useEffect(() => {
-		//     setAttributes( {useFirstImageFromPost: true});
-		// }, [setAttributes]);
 
 		const handleRemove = () => {
 			setAttributes( {
@@ -78,13 +64,13 @@ export const Edit = createHigherOrderComponent<
 
 		return (
 			<>
-				<BlockEdit { ...props } />
+				{ featuredImageFallback?.id ? (
+					<FallbackPreview { ...props } BlockEdit={ BlockEdit } />
+				) : (
+					<BlockEdit { ...props } />
+				) }
 				<InspectorControls>
-					<PanelBody
-						title="Fallback Image"
-						initialOpen={ panelState.current }
-						onToggle={ handlePanelToggle }
-					>
+					<PanelBody title="Fallback Image" initialOpen={ false }>
 						<ToggleControl
 							label="Use First Image from Post"
 							checked={ useFirstImageFromPost }

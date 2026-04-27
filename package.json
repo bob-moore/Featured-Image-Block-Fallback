@@ -48,7 +48,7 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"zip": "wp-scripts plugin-zip --root-folder='featured-image-block-fallback'"
+		"plugin-zip": "wp-scripts plugin-zip --root-folder='featured-image-block-fallback'"
 	},
 	"browserslist": [
 		"last 3 version",
