@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add fallback images to the featured image block
- * Version:           0.3.1
+ * Version:           0.3.2
  * Requires at least: 6.5
  * Tested up to:      6.7.2
  * Requires PHP:      8.2

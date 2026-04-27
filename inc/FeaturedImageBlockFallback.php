@@ -240,10 +240,13 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 */
 	public function preProcessBlock( string|null $block_content, array $block ): ?string
 	{
-		if (
-			'core/post-featured-image' !== ( $block['blockName'] ?? '' )
-			|| has_post_thumbnail( get_the_id() )
-		) {
+		if ( '' !== $block_content ) {
+			return $block_content;
+		}
+
+		$post_id = intval( $block['context']['postId'] ?? get_the_id() );
+
+		if ( ! $post_id || (int) get_post_meta( $post_id, '_thumbnail_id', true ) ) {
 			return $block_content;
 		}
 
