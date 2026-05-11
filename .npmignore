@@ -1,0 +1,10 @@
+# Exclude test suites bundled in scoped vendor packages
+vendor/scoped/bmd/github-wp-updater/tests
+vendor/scoped/bmd/wp-framework/tests
+
+# Exclude editor workspace files from scoped vendor packages
+vendor/scoped/bmd/github-wp-updater/project.code-workspace
+vendor/scoped/bmd/wp-framework/plugin.code-workspace
+
+# Exclude source maps from build output
+build/*.map

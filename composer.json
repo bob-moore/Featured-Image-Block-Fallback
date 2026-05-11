@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Bmd\\": "./inc"
+            "Bmd\\FeaturedImageBlockFallback\\": "./inc"
         }
     },
     "extra": {
         "wpify-scoper": {
-            "prefix": "Bmd\\ResponsiveGridExtension",
+            "prefix": "Bmd\\FeaturedImageBlockFallback",
             "slug": "featured-image-block-fallback",
             "folder": "./vendor/scoped",
             "composerjson": "composer-deps.json",
@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Bmd\\Tests\\": "./tests"
+            "Bmd\\FeaturedImageBlockFallback\\Tests\\": "./tests"
         }
     },
     "require-dev": {

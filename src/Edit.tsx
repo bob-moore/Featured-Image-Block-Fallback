@@ -16,7 +16,6 @@ import { PanelBody, Button, ToggleControl } from '@wordpress/components';
  * Internal Dependencies
  */
 import { BlockEditProps, BlockAttributes, Image } from './types';
-import { FallbackPreview } from './FallbackPreview';
 import style from './edit.module.scss';
 
 /**
@@ -64,11 +63,7 @@ export const Edit = createHigherOrderComponent<
 
 		return (
 			<>
-				{ featuredImageFallback?.id ? (
-					<FallbackPreview { ...props } BlockEdit={ BlockEdit } />
-				) : (
-					<BlockEdit { ...props } />
-				) }
+				<BlockEdit { ...props } />
 				<InspectorControls>
 					<PanelBody title="Fallback Image" initialOpen={ false }>
 						<ToggleControl

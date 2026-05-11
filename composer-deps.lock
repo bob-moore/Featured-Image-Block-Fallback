@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bmd/github-wp-updater",
-            "version": "0.1.3",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bob-moore/github-plugin-updater.git",
-                "reference": "c1e7a26a07e4b5a5aabf684b20084f77d6cdbe1b"
+                "reference": "4e6a99b41095d12034110475ba20540bbe5a1984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bob-moore/github-plugin-updater/zipball/c1e7a26a07e4b5a5aabf684b20084f77d6cdbe1b",
-                "reference": "c1e7a26a07e4b5a5aabf684b20084f77d6cdbe1b",
+                "url": "https://api.github.com/repos/bob-moore/github-plugin-updater/zipball/4e6a99b41095d12034110475ba20540bbe5a1984",
+                "reference": "4e6a99b41095d12034110475ba20540bbe5a1984",
                 "shasum": ""
             },
             "require": {
@@ -51,22 +51,22 @@
             "description": "GitHub Updater for WordPress",
             "support": {
                 "issues": "https://github.com/bob-moore/github-plugin-updater/issues",
-                "source": "https://github.com/bob-moore/github-plugin-updater/tree/0.1.3"
+                "source": "https://github.com/bob-moore/github-plugin-updater/tree/0.1.4"
             },
-            "time": "2026-04-23T18:09:26+00:00"
+            "time": "2026-04-28T14:52:51+00:00"
         },
         {
             "name": "bmd/wp-framework",
-            "version": "0.2.2",
+            "version": "0.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bob-moore/WP-Framework.git",
-                "reference": "a3d72d3555b5e858af31d8c92940d383b6ba9e7a"
+                "reference": "a228c93a4664e9f513ff8b242be04db905b5a13e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bob-moore/WP-Framework/zipball/a3d72d3555b5e858af31d8c92940d383b6ba9e7a",
-                "reference": "a3d72d3555b5e858af31d8c92940d383b6ba9e7a",
+                "url": "https://api.github.com/repos/bob-moore/WP-Framework/zipball/a228c93a4664e9f513ff8b242be04db905b5a13e",
+                "reference": "a228c93a4664e9f513ff8b242be04db905b5a13e",
                 "shasum": ""
             },
             "require": {
@@ -96,9 +96,9 @@
             "description": "Generic WordPress framework plugin",
             "support": {
                 "issues": "https://github.com/bob-moore/WP-Framework/issues",
-                "source": "https://github.com/bob-moore/WP-Framework/tree/0.2.2"
+                "source": "https://github.com/bob-moore/WP-Framework/tree/0.2.7"
             },
-            "time": "2026-04-23T17:55:00+00:00"
+            "time": "2026-05-06T01:26:03+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -177,16 +177,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.12",
+            "version": "v2.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919"
+                "reference": "b566ee0dd251f3c4078bed003a7ce015f5ea6dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
-                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/b566ee0dd251f3c4078bed003a7ce015f5ea6dce",
+                "reference": "b566ee0dd251f3c4078bed003a7ce015f5ea6dce",
                 "shasum": ""
             },
             "require": {
@@ -234,7 +234,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-04-14T13:33:34+00:00"
+            "time": "2026-04-16T14:03:50+00:00"
         },
         {
             "name": "league/commonmark",
@@ -816,16 +816,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.6.0",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
+                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
-                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/50f59d1f3ca46d41ac911f97a78626b6756af35b",
+                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b",
                 "shasum": ""
             },
             "require": {
@@ -838,7 +838,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
-                    "dev-main": "3.6-dev"
+                    "dev-main": "3.7-dev"
                 }
             },
             "autoload": {
@@ -863,7 +863,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.0"
             },
             "funding": [
                 {
@@ -875,15 +875,19 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T14:21:43+00:00"
+            "time": "2026-04-13T15:52:40+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -943,7 +947,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -969,13 +973,13 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

@@ -37,6 +37,9 @@ Thumbs.db
 *.idea
 *.sublime-project
 *.sublime-workspace
+.codex/
+.cursor/
+.github/skills/
 # codekit #
 ##########
 config.codekit
@@ -51,6 +54,7 @@ vendor
 !composer.lock
 !composer-deps.lock
 *.claude
+.phpunit.result.cache
 # Other #
 ####################
 instructions

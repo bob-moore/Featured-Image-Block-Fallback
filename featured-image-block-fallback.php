@@ -16,8 +16,7 @@
  * @package           featured-image-block-fallback
  */
 
-use Bmd\FeaturedImageBlockFallback;
-use Bmd\ResponsiveGridExtension\Bmd\GithubWpUpdater;
+use Bmd\FeaturedImageBlockFallback\ServiceLoader;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,23 +25,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/vendor/scoped/autoload.php';
 
-function create_featured_image_block_fallback_plugin(): void
-{
-	$updater = new GithubWpUpdater(
-		__FILE__,
-		[
-			'github.user'   => 'bob-moore',
-			'github.repo'   => 'Featured-Image-Block-Fallback',
-			'github.branch' => 'main',
-		]
-	);
-
-	$plugin = new FeaturedImageBlockFallback(
-		plugin_dir_url( __FILE__ ),
-		plugin_dir_path( __FILE__ )
-	);
-
-	$updater->mount();
-	$plugin->mount();
-}
-create_featured_image_block_fallback_plugin();
+new ServiceLoader();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Main plugin file
+ * Main plugin service.
  *
  * PHP Version 8.2
  *
@@ -11,12 +11,12 @@
  * @since      0.1.0
  */
 
-namespace Bmd;
+namespace Bmd\FeaturedImageBlockFallback;
 
 /**
- * Featured image block fallback class definition
+ * Featured image block fallback service class.
  */
-class FeaturedImageBlockFallback implements BasicPlugin
+class Plugin
 {
 	/**
 	 * URL of this plugin/package
@@ -53,8 +53,8 @@ class FeaturedImageBlockFallback implements BasicPlugin
 		string $url = '',
 		string $path = ''
 	) {
-		$this->setUrl( ! empty( $url ) ? esc_url_raw( $url ) : plugin_dir_url( __DIR__ ) );
-		$this->setPath( ! empty( $path ) ? esc_html( $path ) : plugin_dir_path( __DIR__ ) );
+		$this->setUrl( ! empty( $url ) ? $url : Utilities::getUrl() );
+		$this->setPath( ! empty( $path ) ? $path : Utilities::getPath() );
 	}
 
 	/**
@@ -66,7 +66,8 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 */
 	public function setUrl( string $url ): void
 	{
-		$this->url = trailingslashit( $url );
+		$filtered  = (string) apply_filters( 'featured_image_block_fallback_plugin_url', $url );
+		$this->url = '' !== $filtered ? trailingslashit( esc_url_raw( $filtered ) ) : '';
 	}
 
 	/**
@@ -78,80 +79,43 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 */
 	public function setPath( string $path ): void
 	{
-		$this->path = trailingslashit( $path );
+		$filtered   = (string) apply_filters( 'featured_image_block_fallback_plugin_path', $path );
+		$this->path = '' !== $filtered ? trailingslashit( $filtered ) : '';
 	}
 
 	/**
-	 * Build an absolute path inside the package build directory.
+	 * Resolve script dependency metadata from a WordPress build asset file.
 	 *
-	 * @param string $relative_path Relative file path inside build.
+	 * @param string $key Build asset key without the `.asset.php` suffix.
 	 *
-	 * @return string
+	 * @return array{dependencies: array<int, string>, version: string|null}
 	 */
-	protected function buildPath( string $relative_path ): string
+	protected function getAssetData( string $key ): array
 	{
-		$path = apply_filters( 'featured_image_block_fallback_plugin_path', $this->path );
+		$asset_file = $this->path . "build/{$key}.asset.php";
 
-		if ( '' === $path ) {
-			return '';
-		}
-
-		return wp_normalize_path( $path . 'build/' . ltrim( $relative_path, '/' ) );
-	}
-
-	/**
-	 * Resolve a build file path into a public URL.
-	 *
-	 * @param string $relative_path Relative file path inside build.
-	 *
-	 * @return string
-	 */
-	protected function buildUrl( string $relative_path ): string
-	{
-		$url = apply_filters( 'featured_image_block_fallback_plugin_url', $this->url );
-
-		if ( '' === $url ) {
-			return '';
-		}
-
-		return $url . 'build/' . ltrim( $relative_path, '/' );
-	}
-
-	/**
-	 * Load the wp-scripts asset manifest, checking both naming conventions.
-	 *
-	 * @return array{dependencies: string[], version: string|null}
-	 */
-	protected function getScriptAssets(): array
-	{
-		$asset_candidates = [
-			$this->buildPath( 'index.asset.php' ),
-			$this->buildPath( 'index.assets.php' ),
-		];
-
-		foreach ( $asset_candidates as $asset_file ) {
-			if ( ! is_file( $asset_file ) ) {
-				continue;
-			}
-
-			$asset = include $asset_file;
-
-			if ( ! is_array( $asset ) ) {
-				continue;
-			}
-
-			$dependencies = $asset['dependencies'] ?? [];
-			$version      = $asset['version'] ?? null;
-
+		if ( ! is_file( $asset_file ) ) {
 			return [
-				'dependencies' => is_array( $dependencies ) ? $dependencies : [],
-				'version'      => is_string( $version ) ? $version : null,
+				'dependencies' => [],
+				'version'      => null,
 			];
 		}
 
+		$asset = include $asset_file;
+
+		if ( ! is_array( $asset ) ) {
+			return [
+				'dependencies' => [],
+				'version'      => null,
+			];
+		}
+
+		$dependencies = $asset['dependencies'] ?? [];
+		$version      = $asset['version'] ?? null;
+
 		return [
-			'dependencies' => [],
-			'version'      => null,
+			'dependencies' => is_array( $dependencies ) ? $dependencies : [],
+			'version'      => is_string( $version ) ? $version : null,
 		];
 	}
 
@@ -175,33 +139,35 @@ class FeaturedImageBlockFallback implements BasicPlugin
 	 */
 	public function enqueueBlockAssets(): void
 	{
-		$assets     = $this->getScriptAssets();
-		$style_file = $this->buildPath( 'index.css' );
+		$script_file = $this->path . 'build/index.js';
 
-		if ( ! empty( $style_file ) && is_file( $style_file ) ) {
-			// Keep style version in sync with script build version when available.
-			$version = $assets['version'] ?? (string) filemtime( $style_file );
-
-			wp_enqueue_style(
-				'featured-image-block-fallback',
-				$this->buildUrl( 'index.css' ),
-				[],
-				$version,
-				'all'
-			);
+		if ( ! is_file( $script_file ) ) {
+			return;
 		}
 
-		$script_url = $this->buildUrl( 'index.js' );
+		$assets = $this->getAssetData( 'index' );
 
-		if ( ! empty( $script_url ) ) {
-			wp_enqueue_script(
-				'featured-image-block-fallback',
-				$script_url,
-				$assets['dependencies'],
-				$assets['version'],
-				true
-			);
+		wp_enqueue_script(
+			'featured-image-block-fallback',
+			$this->url . 'build/index.js',
+			$assets['dependencies'],
+			$assets['version'] ?? (string) filemtime( $script_file ),
+			true
+		);
+
+		$style_file = $this->path . 'build/index.css';
+
+		if ( ! is_file( $style_file ) ) {
+			return;
 		}
+
+		wp_enqueue_style(
+			'featured-image-block-fallback',
+			$this->url . 'build/index.css',
+			[],
+			$assets['version'] ?? (string) filemtime( $style_file ),
+			'all'
+		);
 	}
 
 	/**

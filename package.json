@@ -1,6 +1,6 @@
 {
 	"name": "featured-image-block-fallback",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"description": "Block editor plugin to add a fallback image for the featured image block",
 	"author": "Bob Moore <bob@bobmoore.dev>",
 	"license": "GPL-2.0-or-later",
@@ -17,7 +17,7 @@
 	"repository": "https://github.com/bob-moore/Featured-Image-Block-Fallback",
 	"bugs": "https://github.com/bob-moore/Featured-Image-Block-Fallback/issues",
 	"files": [
-		"plugin.php",
+		"featured-image-block-fallback.php",
 		"build",
 		"assets",
 		"inc",
