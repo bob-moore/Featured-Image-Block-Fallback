@@ -4,7 +4,7 @@
     "type": "project",
     "license": "GPL-2.0-or-later",
     "require": {
-        "bmd/github-wp-updater": "*"
+        "bmd/github-wp-updater": "^0.1.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

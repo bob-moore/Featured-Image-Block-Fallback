@@ -1,18 +1,29 @@
 <?php
 /**
- * Tests for Plugin.
+ * Tests for Featured Image Block Fallback.
  *
  * @package Bmd\FeaturedImageBlockFallback
  */
 
 namespace Bmd\FeaturedImageBlockFallback\Tests;
 
-use Bmd\FeaturedImageBlockFallback\Plugin;
+use Bmd\FeaturedImageBlockFallback\Controller;
+use Bmd\FeaturedImageBlockFallback\Providers\Assets;
+use Bmd\FeaturedImageBlockFallback\Services\FilePathResolver;
+use Bmd\FeaturedImageBlockFallback\Services\ScriptLoader;
+use Bmd\FeaturedImageBlockFallback\Services\StyleLoader;
+use Bmd\FeaturedImageBlockFallback\Services\UrlResolver;
+use Bmd\FeaturedImageBlockFallback\Transformers\Fallback;
 use PHPUnit\Framework\TestCase;
 use WP_Mock;
 
 /**
- * @covers \Bmd\FeaturedImageBlockFallback\Plugin
+ * @covers \Bmd\FeaturedImageBlockFallback\Controller
+ * @covers \Bmd\FeaturedImageBlockFallback\Providers\Assets
+ * @covers \Bmd\FeaturedImageBlockFallback\Services\AssetLoader
+ * @covers \Bmd\FeaturedImageBlockFallback\Services\ScriptLoader
+ * @covers \Bmd\FeaturedImageBlockFallback\Services\StyleLoader
+ * @covers \Bmd\FeaturedImageBlockFallback\Transformers\Fallback
  */
 class FeaturedImageBlockFallbackTest extends TestCase
 {
@@ -31,19 +42,21 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function mount_registers_expected_wordpress_hooks(): void
+	public function controller_registers_expected_wordpress_hooks(): void
 	{
-		$plugin = new Plugin(
-			'https://example.test/wp-content/plugins/featured-image-block-fallback/',
-			'/var/www/html/wp-content/plugins/featured-image-block-fallback/'
-		);
+		$assets     = $this->createMock( Assets::class );
+		$fallback   = $this->createMock( Fallback::class );
+		$controller = new Controller();
 
-		WP_Mock::expectActionAdded( 'enqueue_block_editor_assets', [ $plugin, 'enqueueBlockAssets' ] );
-		WP_Mock::expectFilterAdded( 'render_block_context', [ $plugin, 'preProcessBlock' ], 10, 2 );
-		WP_Mock::expectFilterAdded( 'post_thumbnail_id', [ $plugin, 'filterPostThumbnailId' ], 10, 2 );
-		WP_Mock::expectFilterAdded( 'render_block', [ $plugin, 'resetPostThumbnailFallback' ], 10, 3 );
+		$controller->setPackage( 'featured_image_block_fallback' );
 
-		$plugin->mount();
+		WP_Mock::expectActionAdded( 'enqueue_block_editor_assets', [ $assets, 'enqueueEditorAssets' ] );
+		WP_Mock::expectFilterAdded( 'render_block_context', [ $fallback, 'preProcessBlock' ], 10, 2 );
+		WP_Mock::expectFilterAdded( 'post_thumbnail_id', [ $fallback, 'filterPostThumbnailId' ], 10, 2 );
+		WP_Mock::expectFilterAdded( 'render_block', [ $fallback, 'resetPostThumbnailFallback' ], 10, 3 );
+
+		$controller->registerActions( $assets );
+		$controller->registerFilters( $fallback );
 
 		$this->addToAssertionCount( 4 );
 	}
@@ -51,7 +64,7 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	/**
 	 * @test
 	 */
-	public function get_asset_data_reads_wordpress_asset_metadata(): void
+	public function asset_loader_reads_wordpress_asset_metadata(): void
 	{
 		$temp_root  = $this->createTemporaryPluginRoot();
 		$asset_file = $temp_root . 'build/index.asset.php';
@@ -61,56 +74,45 @@ class FeaturedImageBlockFallbackTest extends TestCase
 			"<?php\nreturn [ 'dependencies' => [ 'wp-blocks', 'wp-element' ], 'version' => 'abc123' ];\n"
 		);
 
-		$plugin = new class( 'https://example.test/plugin/', $temp_root ) extends Plugin {
-			/** @return array{dependencies: array<int, string>, version: string|null} */
-			public function publicGetAssetData( string $key ): array
-			{
-				return $this->getAssetData( $key );
-			}
-		};
+		$script_loader = $this->createScriptLoader( 'https://example.test/plugin/', $temp_root );
 
 		$this->assertSame(
 			[
 				'dependencies' => [ 'wp-blocks', 'wp-element' ],
 				'version'      => 'abc123',
 			],
-			$plugin->publicGetAssetData( 'index' )
+			$script_loader->getAssetData( 'index' )
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function get_asset_data_returns_empty_defaults_when_no_asset_file_exists(): void
+	public function asset_loader_returns_empty_defaults_when_no_asset_file_exists(): void
 	{
-		$temp_root = $this->createTemporaryPluginRoot();
-
-		$plugin = new class( 'https://example.test/plugin/', $temp_root ) extends Plugin {
-			/** @return array{dependencies: array<int, string>, version: string|null} */
-			public function publicGetAssetData( string $key ): array
-			{
-				return $this->getAssetData( $key );
-			}
-		};
+		$script_loader = $this->createScriptLoader(
+			'https://example.test/plugin/',
+			$this->createTemporaryPluginRoot()
+		);
 
 		$this->assertSame(
 			[
 				'dependencies' => [],
 				'version'      => null,
 			],
-			$plugin->publicGetAssetData( 'index' )
+			$script_loader->getAssetData( 'index' )
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function enqueue_block_assets_registers_script_and_style_when_build_files_exist(): void
+	public function assets_provider_registers_and_enqueues_editor_assets(): void
 	{
-		$temp_root  = $this->createTemporaryPluginRoot();
-		$asset_file = $temp_root . 'build/index.asset.php';
+		$temp_root   = $this->createTemporaryPluginRoot();
+		$asset_file  = $temp_root . 'build/index.asset.php';
 		$script_file = $temp_root . 'build/index.js';
-		$style_file = $temp_root . 'build/index.css';
+		$style_file  = $temp_root . 'build/index.css';
 
 		file_put_contents(
 			$asset_file,
@@ -119,38 +121,34 @@ class FeaturedImageBlockFallbackTest extends TestCase
 		file_put_contents( $script_file, '/* script */' );
 		file_put_contents( $style_file, '/* styles */' );
 
-		$plugin = new Plugin( 'https://example.test/plugin/', $temp_root );
+		$assets = $this->createAssetsProvider( 'https://example.test/plugin/', $temp_root );
 
 		WP_Mock::userFunction(
-			'wp_enqueue_script',
+			'apply_filters',
 			[
-				'times' => 1,
-				'args'  => [
-					'featured-image-block-fallback',
-					'https://example.test/plugin/build/index.js',
-					[ 'wp-blocks' ],
-					'v1.0',
-					true,
-				],
+				'return_arg' => 2,
 			]
 		);
 		WP_Mock::userFunction(
-			'wp_enqueue_style',
+			'wp_register_script',
 			[
-				'times' => 1,
-				'args'  => [
-					'featured-image-block-fallback',
-					'https://example.test/plugin/build/index.css',
-					[],
-					'v1.0',
-					'all',
-				],
+				'times'  => 1,
+				'return' => static fn ( ...$args ): bool => true,
 			]
 		);
+		WP_Mock::userFunction( 'wp_enqueue_script', [ 'times' => 1, 'return' => static fn ( ...$args ) => null ] );
+		WP_Mock::userFunction(
+			'wp_register_style',
+			[
+				'times'  => 1,
+				'return' => static fn ( ...$args ): bool => true,
+			]
+		);
+		WP_Mock::userFunction( 'wp_enqueue_style', [ 'times' => 1, 'return' => static fn ( ...$args ) => null ] );
 
-		$plugin->enqueueBlockAssets();
+		$assets->enqueueEditorAssets();
 
-		$this->addToAssertionCount( 2 );
+		$this->addToAssertionCount( 4 );
 	}
 
 	/**
@@ -158,9 +156,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function filter_post_thumbnail_id_returns_existing_thumbnail_unchanged(): void
 	{
-		$plugin = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
+		$fallback = $this->createFallback();
 
-		$this->assertSame( 42, $plugin->filterPostThumbnailId( 42, 5 ) );
+		$this->assertSame( 42, $fallback->filterPostThumbnailId( 42, 5 ) );
 	}
 
 	/**
@@ -168,16 +166,10 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function filter_post_thumbnail_id_returns_fallback_from_image_map(): void
 	{
-		$plugin = new class( 'https://example.test/plugin/', '/var/www/plugin/' ) extends Plugin {
-			public function seedImageMap( array $map ): void
-			{
-				$this->image_map = $map;
-			}
-		};
+		$fallback = $this->createInspectableFallback();
+		$fallback->seedImageMap( [ 5 => 99 ] );
 
-		$plugin->seedImageMap( [ 5 => 99 ] );
-
-		$this->assertSame( 99, $plugin->filterPostThumbnailId( false, 5 ) );
+		$this->assertSame( 99, $fallback->filterPostThumbnailId( false, 5 ) );
 	}
 
 	/**
@@ -185,9 +177,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function filter_post_thumbnail_id_returns_false_when_no_fallback_is_mapped(): void
 	{
-		$plugin = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
+		$fallback = $this->createFallback();
 
-		$this->assertFalse( $plugin->filterPostThumbnailId( false, 5 ) );
+		$this->assertFalse( $fallback->filterPostThumbnailId( false, 5 ) );
 	}
 
 	/**
@@ -195,17 +187,12 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function filter_post_thumbnail_id_accepts_wp_post_object(): void
 	{
-		$plugin = new class( 'https://example.test/plugin/', '/var/www/plugin/' ) extends Plugin {
-			public function seedImageMap( array $map ): void
-			{
-				$this->image_map = $map;
-			}
-		};
-
+		$fallback = $this->createInspectableFallback();
 		$post     = new \WP_Post( [ 'ID' => 7 ] );
-		$plugin->seedImageMap( [ 7 => 55 ] );
 
-		$this->assertSame( 55, $plugin->filterPostThumbnailId( false, $post ) );
+		$fallback->seedImageMap( [ 7 => 55 ] );
+
+		$this->assertSame( 55, $fallback->filterPostThumbnailId( false, $post ) );
 	}
 
 	/**
@@ -213,11 +200,11 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_ignores_non_featured_image_blocks(): void
 	{
-		$plugin  = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$context = [ 'postId' => 5 ];
-		$block   = [ 'blockName' => 'core/paragraph' ];
+		$fallback = $this->createFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [ 'blockName' => 'core/paragraph' ];
 
-		$this->assertSame( $context, $plugin->preProcessBlock( $context, $block ) );
+		$this->assertSame( $context, $fallback->preProcessBlock( $context, $block ) );
 	}
 
 	/**
@@ -225,16 +212,16 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_ignores_posts_that_already_have_a_thumbnail(): void
 	{
-		$plugin  = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$context = [ 'postId' => 5 ];
-		$block   = [ 'blockName' => 'core/post-featured-image', 'attrs' => [] ];
+		$fallback = $this->createFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [ 'blockName' => 'core/post-featured-image', 'attrs' => [] ];
 
 		WP_Mock::userFunction( 'get_post_meta', [
 			'args'   => [ 5, '_thumbnail_id', true ],
 			'return' => 42,
 		] );
 
-		$this->assertSame( $context, $plugin->preProcessBlock( $context, $block ) );
+		$this->assertSame( $context, $fallback->preProcessBlock( $context, $block ) );
 	}
 
 	/**
@@ -242,9 +229,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_ignores_when_no_fallback_id_is_configured(): void
 	{
-		$plugin  = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$context = [ 'postId' => 5 ];
-		$block   = [ 'blockName' => 'core/post-featured-image', 'attrs' => [] ];
+		$fallback = $this->createFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [ 'blockName' => 'core/post-featured-image', 'attrs' => [] ];
 
 		WP_Mock::userFunction( 'get_post_meta', [
 			'args'   => [ 5, '_thumbnail_id', true ],
@@ -252,7 +239,7 @@ class FeaturedImageBlockFallbackTest extends TestCase
 		] );
 		WP_Mock::userFunction( 'apply_filters', [ 'return' => 0 ] );
 
-		$this->assertSame( $context, $plugin->preProcessBlock( $context, $block ) );
+		$this->assertSame( $context, $fallback->preProcessBlock( $context, $block ) );
 	}
 
 	/**
@@ -260,15 +247,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_maps_fallback_image_id_for_the_post(): void
 	{
-		$plugin = new class( 'https://example.test/plugin/', '/var/www/plugin/' ) extends Plugin {
-			public function getImageMap(): array
-			{
-				return $this->image_map;
-			}
-		};
-
-		$context = [ 'postId' => 5 ];
-		$block   = [
+		$fallback = $this->createInspectableFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [
 			'blockName' => 'core/post-featured-image',
 			'attrs'     => [ 'featuredImageFallback' => [ 'id' => 99 ] ],
 		];
@@ -279,9 +260,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 		] );
 		WP_Mock::userFunction( 'apply_filters', [ 'return' => 99 ] );
 
-		$plugin->preProcessBlock( $context, $block );
+		$fallback->preProcessBlock( $context, $block );
 
-		$this->assertSame( [ 5 => 99 ], $plugin->getImageMap() );
+		$this->assertSame( [ 5 => 99 ], $fallback->getImageMap() );
 	}
 
 	/**
@@ -289,9 +270,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_skips_fallback_when_post_content_has_an_image(): void
 	{
-		$plugin  = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$context = [ 'postId' => 5 ];
-		$block   = [
+		$fallback = $this->createFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [
 			'blockName' => 'core/post-featured-image',
 			'attrs'     => [
 				'featuredImageFallback' => [ 'id' => 99 ],
@@ -313,7 +294,7 @@ class FeaturedImageBlockFallbackTest extends TestCase
 			'return' => $post,
 		] );
 
-		$this->assertSame( $context, $plugin->preProcessBlock( $context, $block ) );
+		$this->assertSame( $context, $fallback->preProcessBlock( $context, $block ) );
 	}
 
 	/**
@@ -321,15 +302,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_maps_fallback_when_use_first_image_is_true_but_content_has_no_image(): void
 	{
-		$plugin = new class( 'https://example.test/plugin/', '/var/www/plugin/' ) extends Plugin {
-			public function getImageMap(): array
-			{
-				return $this->image_map;
-			}
-		};
-
-		$context = [ 'postId' => 5 ];
-		$block   = [
+		$fallback = $this->createInspectableFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [
 			'blockName' => 'core/post-featured-image',
 			'attrs'     => [
 				'featuredImageFallback' => [ 'id' => 99 ],
@@ -351,9 +326,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 			'return' => $post,
 		] );
 
-		$plugin->preProcessBlock( $context, $block );
+		$fallback->preProcessBlock( $context, $block );
 
-		$this->assertSame( [ 5 => 99 ], $plugin->getImageMap() );
+		$this->assertSame( [ 5 => 99 ], $fallback->getImageMap() );
 	}
 
 	/**
@@ -361,9 +336,9 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function pre_process_block_skips_fallback_when_get_post_returns_non_post(): void
 	{
-		$plugin  = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$context = [ 'postId' => 5 ];
-		$block   = [
+		$fallback = $this->createFallback();
+		$context  = [ 'postId' => 5 ];
+		$block    = [
 			'blockName' => 'core/post-featured-image',
 			'attrs'     => [
 				'featuredImageFallback' => [ 'id' => 99 ],
@@ -381,7 +356,7 @@ class FeaturedImageBlockFallbackTest extends TestCase
 			'return' => null,
 		] );
 
-		$this->assertSame( $context, $plugin->preProcessBlock( $context, $block ) );
+		$this->assertSame( $context, $fallback->preProcessBlock( $context, $block ) );
 	}
 
 	/**
@@ -389,11 +364,11 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function reset_post_thumbnail_fallback_ignores_non_featured_image_blocks(): void
 	{
-		$plugin        = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
+		$fallback      = $this->createFallback();
 		$block_content = '<div>Some block</div>';
 		$block         = [ 'blockName' => 'core/paragraph' ];
 
-		$this->assertSame( $block_content, $plugin->resetPostThumbnailFallback( $block_content, $block, null ) );
+		$this->assertSame( $block_content, $fallback->resetPostThumbnailFallback( $block_content, $block, null ) );
 	}
 
 	/**
@@ -401,7 +376,72 @@ class FeaturedImageBlockFallbackTest extends TestCase
 	 */
 	public function reset_post_thumbnail_fallback_clears_image_map_entry_for_the_post(): void
 	{
-		$plugin = new class( 'https://example.test/plugin/', '/var/www/plugin/' ) extends Plugin {
+		$fallback = $this->createInspectableFallback();
+		$fallback->seedImageMap( [ 5 => 99, 7 => 44 ] );
+
+		$instance          = new \WP_Block();
+		$instance->context = [ 'postId' => 5 ];
+
+		$block_content = '<div class="wp-block-post-featured-image"></div>';
+		$block         = [ 'blockName' => 'core/post-featured-image' ];
+
+		$result = $fallback->resetPostThumbnailFallback( $block_content, $block, $instance );
+
+		$this->assertSame( $block_content, $result );
+		$this->assertSame( [ 7 => 44 ], $fallback->getImageMap() );
+	}
+
+	private function createTemporaryPluginRoot(): string
+	{
+		$root = trailingslashit( sys_get_temp_dir() ) . 'fibf-tests-' . uniqid( '', true ) . '/';
+		mkdir( $root . 'build', 0777, true );
+
+		return $root;
+	}
+
+	private function createAssetsProvider( string $url, string $path ): Assets
+	{
+		$script_loader = $this->createScriptLoader( $url, $path );
+		$style_loader  = $this->createStyleLoader( $url, $path );
+		$assets        = new Assets( $script_loader, $style_loader );
+		$assets->setPackage( 'featured_image_block_fallback' );
+
+		return $assets;
+	}
+
+	private function createScriptLoader( string $url, string $path ): ScriptLoader
+	{
+		$loader = new ScriptLoader(
+			new FilePathResolver( $path ),
+			new UrlResolver( $url )
+		);
+		$loader->setPackage( 'featured_image_block_fallback' );
+
+		return $loader;
+	}
+
+	private function createStyleLoader( string $url, string $path ): StyleLoader
+	{
+		$loader = new StyleLoader(
+			new FilePathResolver( $path ),
+			new UrlResolver( $url )
+		);
+		$loader->setPackage( 'featured_image_block_fallback' );
+
+		return $loader;
+	}
+
+	private function createFallback(): Fallback
+	{
+		$fallback = new Fallback();
+		$fallback->setPackage( 'featured_image_block_fallback' );
+
+		return $fallback;
+	}
+
+	private function createInspectableFallback(): Fallback
+	{
+		$fallback = new class() extends Fallback {
 			public function seedImageMap( array $map ): void
 			{
 				$this->image_map = $map;
@@ -412,40 +452,8 @@ class FeaturedImageBlockFallbackTest extends TestCase
 				return $this->image_map;
 			}
 		};
+		$fallback->setPackage( 'featured_image_block_fallback' );
 
-		$plugin->seedImageMap( [ 5 => 99, 7 => 44 ] );
-
-		$instance          = new \WP_Block();
-		$instance->context = [ 'postId' => 5 ];
-
-		$block_content = '<div class="wp-block-post-featured-image"></div>';
-		$block         = [ 'blockName' => 'core/post-featured-image' ];
-
-		$result = $plugin->resetPostThumbnailFallback( $block_content, $block, $instance );
-
-		$this->assertSame( $block_content, $result );
-		$this->assertSame( [ 7 => 44 ], $plugin->getImageMap() );
-	}
-
-	/**
-	 * @test
-	 */
-	public function reset_post_thumbnail_fallback_returns_content_unchanged(): void
-	{
-		$plugin        = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
-		$block_content = '<div class="wp-block-post-featured-image"><img src="fallback.jpg"></div>';
-		$block         = [ 'blockName' => 'core/post-featured-image' ];
-
-		$instance          = new \WP_Block();
-		$instance->context = [ 'postId' => 5 ];
-
-		$this->assertSame( $block_content, $plugin->resetPostThumbnailFallback( $block_content, $block, $instance ) );
-	}
-
-	private function createTemporaryPluginRoot(): string
-	{
-		$root = trailingslashit( sys_get_temp_dir() ) . 'fibf-tests-' . uniqid( '', true ) . '/';
-		mkdir( $root . 'build', 0777, true );
-		return $root;
+		return $fallback;
 	}
 }

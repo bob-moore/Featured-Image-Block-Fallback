@@ -26,8 +26,7 @@ Featured Image Block Fallback enhances the core/post-featured-image block by let
 * Adds a fallback image control to the core/post-featured-image block in the editor.
 * Optionally skips the fallback when the post already contains an inline image.
 * Filterable fallback ID (`featured_image_block_fallback_id`) for per-post-type customization.
-* Provides a `BasicPlugin` interface for type-safe Composer integration.
-* Reusable as a Composer library without activating the plugin.
+* Reusable as a Composer library with or without a parent PHP-DI container.
 
 == Installation ==
 
@@ -37,21 +36,21 @@ Featured Image Block Fallback enhances the core/post-featured-image block by let
 2. In WordPress admin, go to Plugins > Add New Plugin > Upload Plugin.
 3. Upload and activate Featured Image Block Fallback.
 
-= Install via Composer in your own plugin or theme =
+= Install via Composer in your own plugin =
 
-1. Add the repository and require the package:
+Add the package:
 
 `composer require bmd/featured-image-block-fallback`
 
-2. Ensure Composer autoloading is loaded in your bootstrap:
+If your parent plugin uses PHP-DI, require this package's `inc/definitions.php`, merge those definitions into your parent container, and override `Bmd\FeaturedImageBlockFallback\Services\FilePathResolver` plus `Bmd\FeaturedImageBlockFallback\Services\UrlResolver` so their constructor values point to this dependency's installed path and URL.
 
-`require_once __DIR__ . '/vendor/autoload.php';`
+Then get `Bmd\FeaturedImageBlockFallback\Controller` from your parent container and call `register()`.
 
-3. Instantiate and mount the service:
+If your parent plugin does not use PHP-DI, instantiate `Bmd\FeaturedImageBlockFallback\Main` and let this package build its own container:
 
-`use Bmd\FeaturedImageBlockFallback;`
-`$plugin = new FeaturedImageBlockFallback( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );`
-`$plugin->mount();`
+`use Bmd\FeaturedImageBlockFallback\Main;`
+`$plugin = new Main( array( 'package' => 'featured_image_block_fallback', 'path' => plugin_dir_path( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/', 'url' => plugin_dir_url( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/' ) );`
+`$plugin->register();`
 
 == Frequently Asked Questions ==
 
@@ -76,9 +75,15 @@ Yes. Filter `featured_image_block_fallback_plugin_path` or `featured_image_block
 
 = Can I use this without activating the plugin? =
 
-Yes. Because `composer.json` defines this as a `library`, you can include it in your own plugin or theme and call `mount()` yourself.
+Yes. Because `composer.json` defines this as a `library`, you can include it in your own plugin and either register its controller through your parent PHP-DI container or instantiate `Main`.
 
 == Changelog ==
+
+= 0.3.2 =
+
+* Unified plugin architecture around `Main`, `Controller`, service providers, and PHP-DI definitions.
+* Added release packaging with scoped vendor dependencies, a compiled container, Docker build support, and wp-env defaults.
+* Removed old compatibility wrapper classes before public adoption.
 
 = 0.3.1 =
 
@@ -88,7 +93,6 @@ Yes. Because `composer.json` defines this as a `library`, you can include it in 
 
 = 0.3.0 =
 
-* Added `BasicPlugin` interface; `FeaturedImageBlockFallback` now implements it.
 * Renamed `$uri`/`setUri()` to `$url`/`setUrl()` for consistency with the interface.
 * Constructor now accepts URL and path directly with sanitized defaults.
 * Added `buildPath()` and `buildUrl()` with filterable asset resolution.

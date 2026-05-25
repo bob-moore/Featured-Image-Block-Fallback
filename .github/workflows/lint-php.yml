@@ -36,7 +36,7 @@ jobs:
         run: find featured-image-block-fallback.php inc tests -name '*.php' -print0 | xargs -0 -n1 php -l
 
       - name: Lint PHP
-        run: ./vendor/bin/phpcs featured-image-block-fallback.php inc -v --standard='./phpcs.xml'
+        run: composer run phpsniff
 
       - name: Static analysis
         run: composer run phpstan

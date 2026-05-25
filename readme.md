@@ -41,7 +41,7 @@ Whether you're building custom templates, using query loops, or designing unique
 2. In WordPress admin, go to **Plugins > Add New Plugin > Upload Plugin**.
 3. Upload the zip and activate **Featured Image Block Fallback**.
 
-### Install via Composer (library usage)
+### Install via Composer
 
 If you are embedding this into your own project:
 
@@ -49,23 +49,54 @@ If you are embedding this into your own project:
 composer require bmd/featured-image-block-fallback
 ```
 
-Then bootstrap:
+If your parent plugin already uses PHP-DI, you can load this package's definitions into the parent container and override only the install-specific path and URL values:
 
 ```php
-use Bmd\FeaturedImageBlockFallback\Plugin;
+use Bmd\FeaturedImageBlockFallback\Controller;
+use Bmd\FeaturedImageBlockFallback\Services\FilePathResolver;
+use Bmd\FeaturedImageBlockFallback\Services\UrlResolver;
+use function DI\autowire;
+use function DI\string;
 
-$dependency_url  = plugin_dir_url( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/';
-$dependency_path = plugin_dir_path( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/';
+$definitions = require __DIR__ . '/vendor/bmd/featured-image-block-fallback/inc/definitions.php';
 
-$plugin = new Plugin(
-    $dependency_url,
-    $dependency_path
+return array_merge(
+    $definitions,
+    [
+        FilePathResolver::class => autowire()
+            ->constructorParameter(
+                'path',
+                string( '{path}vendor/bmd/featured-image-block-fallback/' )
+            ),
+
+        UrlResolver::class => autowire()
+            ->constructorParameter(
+                'url',
+                string( '{url}vendor/bmd/featured-image-block-fallback/' )
+            ),
+    ]
 );
-
-$plugin->mount();
 ```
 
-The `Plugin` constructor expects the URL and filesystem path to the Featured Image Block Fallback dependency root, not the file where you call it. For example, pass `/path/to/vendor/bmd/featured-image-block-fallback/` and the matching public URL for that directory.
+Then ask your parent container for `Controller::class` and call `register()` during your plugin bootstrap.
+
+If your parent plugin does not use PHP-DI, load the dependency through its `Main` class so the package can build its own container:
+
+```php
+use Bmd\FeaturedImageBlockFallback\Main;
+
+$featured_image_fallback = new Main(
+    [
+        'package' => 'featured_image_block_fallback',
+        'path'    => plugin_dir_path( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/',
+        'url'     => plugin_dir_url( __FILE__ ) . 'vendor/bmd/featured-image-block-fallback/',
+    ]
+);
+
+$featured_image_fallback->register();
+```
+
+Both examples should point `path` and `url` at the Featured Image Block Fallback dependency root, not the parent plugin root.
 
 ## Usage
 
@@ -108,9 +139,9 @@ No. It is distributed via GitHub only.
 
 ### 0.3.2
 
-- Unified plugin architecture around `ServiceLoader`, `Plugin`, and `Utilities` classes.
+- Unified plugin architecture around `Main`, `Controller`, service providers, and PHP-DI definitions.
 - Updated namespace from `Bmd\` to `Bmd\FeaturedImageBlockFallback\` for safer standalone and Composer usage.
-- Moved asset path and URL filters into `setPath()` and `setUrl()` setters.
+- Added release packaging with scoped vendor dependencies, a compiled container, Docker build support, and wp-env defaults.
 - Replaced `buildPath()`/`buildUrl()` helper methods with inline path construction.
 - Simplified `getScriptAssets()` into `getAssetData( string $key )`.
 - Replaced combined lint-build workflow with separate `lint-css`, `lint-js`, and `lint-php` workflows.
