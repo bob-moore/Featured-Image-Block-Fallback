@@ -137,6 +137,11 @@ No. It is distributed via GitHub only.
 
 ## Changelog
 
+### 0.3.3
+
+- Fixed package URL detection so plugin installs resolve from the root plugin file.
+- Guarded theme-context detection against empty theme paths in non-WordPress test/bootstrap environments.
+
 ### 0.3.2
 
 - Unified plugin architecture around `Main`, `Controller`, service providers, and PHP-DI definitions.

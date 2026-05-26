@@ -39,7 +39,7 @@ class Utilities
 
 		return 'theme' === self::getUsageContext()
 			? self::buildThemeUrl( $path )
-			: plugin_dir_url( $path );
+			: plugin_dir_url( $path . '/featured-image-block-fallback.php' );
 	}
 
 	/**
@@ -67,9 +67,10 @@ class Utilities
 	 */
 	protected static function getUsageContext(): string
 	{
-		$path = wp_normalize_path( dirname( __DIR__ ) );
+		$path       = self::getPath();
+		$theme_path = wp_normalize_path( get_theme_file_path() );
 
-		return str_contains( $path, get_theme_file_path() )
+		return '' !== $theme_path && str_contains( $path, $theme_path )
 			? 'theme'
 			: 'plugin';
 	}

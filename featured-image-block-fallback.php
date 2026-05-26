@@ -6,7 +6,7 @@
  * Plugin Name: Featured Image Block Fallback
  * Plugin URI:  https://github.com/bob-moore/Featured-Image-Block-Fallback
  * Description: Add fallback images to the featured image block.
- * Version:     0.3.2
+ * Version:     0.3.3
  * Author:      Bob Moore
  * Author URI:  https://www.bobmoore.dev
  * Requires at least: 6.5
@@ -63,7 +63,7 @@ function load_plugin(): void
 		$plugin = new Main(
 			[
 				'package' => 'featured_image_block_fallback',
-				'version' => '0.3.2',
+				'version' => '0.3.3',
 				'path'    => plugin_dir_path( __FILE__ ),
 				'url'     => plugin_dir_url( __FILE__ ),
 			]

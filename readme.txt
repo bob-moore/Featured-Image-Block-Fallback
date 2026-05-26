@@ -5,7 +5,7 @@ Contributors: Bob Moore
 Tags: block-extension, featured-image, gutenberg, block editor
 Requires at least: 6.5
 Tested up to: 6.7.2
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,11 @@ Yes. Filter `featured_image_block_fallback_plugin_path` or `featured_image_block
 Yes. Because `composer.json` defines this as a `library`, you can include it in your own plugin and either register its controller through your parent PHP-DI container or instantiate `Main`.
 
 == Changelog ==
+
+= 0.3.3 =
+
+* Fixed package URL detection so plugin installs resolve from the root plugin file.
+* Guarded theme-context detection against empty theme paths in non-WordPress test/bootstrap environments.
 
 = 0.3.2 =
 
